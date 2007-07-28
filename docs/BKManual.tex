@@ -1,0 +1,167 @@
+\documentclass[letterpaper,10pt,oneside]{book}
+\makeindex
+\usepackage[latin1]{inputenc}
+\usepackage[american]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[dvips]{graphicx}
+
+\usepackage[dvips]{hyperref}
+\title{BrickLayer Development Manual}
+\author{Jeremy Wall (Zaphar)}
+\date{2005-12-05}
+
+\begin{document}
+\tableofcontents
+\chapter{Overview}
+\section{Intro}
+BrickLayer is a set of tools to make designing applications for the web easy. Bricklayer is not a complete application. Neither is it an API. It is a Framework for developing. Bricklayer is written in Perl and will run on any platform that Perl runs on. The framework makes no assumptions about how you like to develop. You can use as much or as little of BrickLayer as you want. Think of it as a toolbox, set of raw materials, and personal construction worker as you build your app. The foundation of Bricklayer is dynamically loadable perl modules. The templating, plugins structure, error handling, database interface and even the publishing interface is built on this. In fact all Bricklayer really does is handle loading your custom modules for you and using them where appropriate. It's really simple and like many really simple concepts has a lot of power.
+\section{BrickLayer's Structure}
+BrickLayer ties everything together in the Bricklayer module. The file Bricklayer.pm contains the Bricklayer module. All you have to do to use Bricklayer in your Application is have a use Bricklayer; statement in your file. Once you have that you have access to all of Bricklayer's powerful plugin and templating features. Of course vanilla Bricklayer really isn't all that useful. You will have to write some custom modules first. Bricklayer has three top level divisions in it's structure.
+\begin{itemize}
+\item Templating
+\item Plugins
+\item Database Interface
+\end{itemize}
+\subsection*{Templating}
+BrickLayer has an extremely powerful templating engine. It allows you to define custom tag identifiers and write your own handlers for the template tags themselves. In fact you will in all likelihood have to do just that since BrickLayer doesn't come stocked with a whole lot of tags to begin with. Since you can define your own tag identifiers you can even do multipass templating using the engine. Bricklayer template tags look like XML elements. They take this form: <IdentifierTagName></IdentifierTagName> and can be container or single tags. Container tags require a closing tag just like XML elements do. Single tags can close the same way that XML elements do: <IdentifierTagName /> We'll go into more detail on the templating engine, and how you can use it, in the templating Chapter.
+\subsection*{Plugins}
+BrickLayer has a dynamic plugin subsystem. In fact the templating engine uses some of the same concepts as the plugin subsystem uses. All Bricklayer plugins are of two general types. There are on demand loading plugins, and preloaded plugins. Out of those two general categories there are 6 plugin flavors each with their own location.
+\begin{itemize}
+\item access
+\item action
+\item content
+\item data
+\item error
+\item publish
+\item store
+\end{itemize}
+Each of the plugin types handles a particular type of job in the Bricklayer environment. Access plugins handle sessions and Logging in. Action plugins are general purpose workhorse plugins. Content plugins are used to filter content before publishing. Data plugins are database drivers for the database interface. Error plugins are used for error handlers and logging. Publish plugins handle actually publishing the content. You can load a plugin using the load\_plugin method. It gets called with the following syntax:
+\begin{verbatim}
+$pluginObj = $BK_Obj->load_plugin($Name, $Type, $ParamsRef);
+$pluginObj->run($argument1, argument2, ...);
+\end{verbatim}
+ Plugin Development and how the plugin system works will be covered in more detail in the Plugin Chapter.
+\newpage
+\subsection{BrickLayer's Directory layout}
+\begin{itemize}
+\item[/] root directory
+\begin{itemize}
+\item[/] cgi (bricklayer's cgi module)
+\item[/] docs (documentation)
+\item[/] data (data location)
+\item[/] lib (bricklayer libraries)
+	\begin{itemize}
+		\item[/] main
+		\item[/] common
+		\item[/] js (javascript libraries)
+		\item[/] data (DB interface libraries)
+	\end{itemize}
+\item[/] plugins
+	\begin{itemize}
+		\item[/] access (access plugin location)
+		\item[/] action (action plugin location)
+		\item[/] content (content plugin location)
+		\item[/] data (data plugin location)
+		\item[/] error (error plugin location)
+		\item[/] publish (publish plugin location)
+		\item[/] store (inactive plugin location)
+	\end{itemize}
+\item[/] templater
+	\begin{itemize}
+		\item[/] handler (template tag handlers)
+	\end{itemize}
+\item[/] templates (template files)
+\end{itemize}
+\end{itemize}
+\section{Using The Bricklayer Object}
+\subsection*{The File Manager Object}
+Bricklayer comes equipped with a file manager object to make wandering the filesystem easier without breaking the dynamic plugin loading code. You don't have to use it but if you don't you might just find your code breaking at strange times. If you use the file\_manager object though all you have to remember is to close the object when your done wandering the filesystem and you'll never get plugin or tag handler errors because they couldn't load or couldn't be found. Getting the object is as easy as calling the 
+\verb|my $FileObj = $BK_Obj->new_file_obj();|
+Then when your done with it make sure to call the 
+\verb|$FileObj->close_obj();|
+to close it. Just one more thing to remember when traversing the filesystem. If you try to call a plugin or tag handler while the \$FileObj is still open you risk having errors. Try to keep the filesystem browsing inside the block your in and close it as soon as your done. It's not too difficult really. The file\_manager object has a lot of highly useful functions Documented below:
+\begin{itemize}
+	\item my \$filemanger = file\_manager->new() create a file manager
+	\item \$filemanger->close\_object() close a filemanager
+	\item \$filemanger->current\_dir() returns current directory
+	\item \$filemanger->ch\_dir(\$directory) changes to a directory
+	\item \$filemanger->move\_up() moves up a directory
+	\item \$filemanger->reset\_dir() resets the directory to where we started
+	\item \$filemanger->mk\_dir() creates a directory in the current
+	\item \$filemanger->rm\_dir() removes a directory and all files in it
+	\item \$filemanger->save\_file(\$name, \$contents, \$destination) saves a file
+	\item \$filemanger->test\_file(\$name) tests for a files existence in current
+	\item \$filemanger->del\_file(\$name) deletes a file \$name must be a full path or the file must be in current
+	\item \$filemanger->view\_dir()  view the contents of current directory
+	\item \$filemanger->view\_directories() view all subdirectories of current
+	\item \$filemanger->view\_file() view contents of a file
+	\item \$filemanger->view\_files() view all files in current
+	\item \$filemanger->view\_files\_of\_type(\$type)  view all files of a certain type eg. file extension without period
+\end{itemize}
+The methods are pretty self explanatory. Just make sure you close the file manager object after your done.
+\subsection*{Database Interface}
+Bricklayer helps all your plugins and tag handlers stay on the same page when it comes to Databases. The new\_db\_conn() method is available to all plugins through the bricklayer object for making new database connections. And the default\_db\_driver() method allows you to use a single database plugin for all your plugins automatically. The specifics of the database driver are entirely up to you however. Bricklayer does not as of yet have a standardized datbase plugin interface. This is because I haven't figured out how to write one without making certain assumptions about how and where you will store your data. Future versions of Bricklayer may add a standard inferface requirement though.
+\subsection{BrickLayer Environment}
+BrickLayer provides an Environment Hash for use in your application. It automatically places the Request variables from a GET or POST request in this hash. Access Plugins will place session variables in here as well. Anything placed in this hash will be available to all plugins or template tag handlers in BrickLayer. You don't have to mess with how information was sent from the browser BrickLayer does this for you behind the scenes.
+\subsection*{Bricklayer Workflow}
+As mentioned before the first thing you have to do to use Bricklayer is have a use Bricklayer statement in your application. Then call Bricklayer's new method to retrieve a Bricklayer object.
+\begin{verbatim}
+use Bricklayer;
+$BK_Obj = Bricklayer->new($ConfigFileName);
+\end{verbatim}
+Once you have a Bricklayer object you can start using all the features. The new method to create a bricklayer object can be passed an optional argument telling it what config file to use. If no argument is passed it will default to the App.conf file in the root directory. Now lets get started using Bricklayer shall we? The Bricklayer object gives you access to all the features Bricklayer has. A typical workflow will involve
+\begin{itemize}
+\item[1] Retrieving any request variables.
+\item[2] Running any requested actions
+\item[3] Determining what template to run 
+\item[4] Running a template
+\item[5] Publishing your results
+\end{itemize}
+\par
+Retrieving the request variables is as easy as looking in the Bricklayer environment hash.
+\begin{verbatim}
+$RequestVariable = $BK_Obj->{Env}{somevariablename};
+\end{verbatim}
+Any request variables will be contained in here. Whether they are POST or GET variables it doesn't matter. BrickLayer takes care of retrieving and storing them for you behind the scenes. It even stores File Uploads there. We'll cover those in more detail later on. Typically the request variables are going to tell you which template you need to run and what actions you need to do so lets get on with it shall we.
+\par
+Most actions will be a plugin in your action plugin directory. You can load and run them like so.
+\begin{verbatim}
+$pluginObj = $BK_Obj->load_plugin($Name, $Type, $ParamsRef);
+$pluginObj->run($argument1, argument2, ...);
+\end{verbatim}
+This will load the plugin of that type and name and pass the reference to any arrays or hashes of parameters to it. You can then run the plugin with it's run method to do whatever action it is that it does. Usually the plugin type will be action but nothing says it has to be that. It may be something else if that's what you wanted.
+\par
+There are two ways to run a template in Bricklayer. Using a file name or just text. You can use either method but we recommend you use the file name method. It's makes things a lot easier on you. Once you know the template file to use just use the run\_templater method like this.
+\begin{verbatim}
+$page = $BK_Obj->run_templater($FileName, $tagid, $params);
+\end{verbatim}
+That will run the templating engine on your template file and return the results to you. Which you can then publish. In fact, lets do that now.
+\begin{verbatim}
+$BK_Obj->publish($page, $publishType,);
+\end{verbatim}
+The publish method publishes your page for you. It can publish the page anywhere you want it. But in this case we probably want to publish it to the browser. So we would choose the publish type that calls the plugin to send it to the browser. There is a default one of web for just that purpose. You can use the publish method to publish it to a file also or send it to a backend server. Once you pushed it out to the browser there probably isn't anything left to do. Bricklayer is really easy and really powerful.
+\subsection*{BrickLayer Made Easy}
+\textit{methods that tie it all together for you}\\
+Bricklayer has two convenience methods that tie all of the above stuff together for you behind the scenes. This is probably the quickest way you can get started using Bricklayer. they are the execute and execute\_web methods. These methods take care of calling the action plugin, running the template, and publishing the results for you. All you have to do is call them with the proper arguments. Here is an example
+\begin{verbatim}
+use BrickLayer;
+use strict;
+
+eval {
+my $app = BrickLayer->new;
+#die "loaded Bricklayer: ";
+$app->execute_web($tagid);
+#$app->execute("web", $tagid); #commented out
+                               #shown as an example
+};
+#our error trapping mechanism simple yet effective :-)
+print "Content-type: text/plain\n\n
+       Encountered a fatal error: $@\n" if ($@);
+\end{verbatim}
+execute\_web is a convenience method for automatically publishing to the web. execute is a convenience function that allows you to specify the publish plugin to use. Each of these methods takes their cues from two different request variables or values in the Bricklayer environment hash. Page and Action. The Page key in the environment hash tells them what template to run. The Action Key in the environment hash tells them what action plugin to run. The \$tagid argument in both of these gets passed to the templating engine to specify what our template tag identifiers are. They are optional and if not given will default to "BK". Now that we have seen how to use the Bricklayer object lets take a look at creating our templates, tag handlers, and plugins for use in the framework.
+\include{templating}
+\include{plugins}
+\include{exampleapp}
+\section{Conclusion}
+Bricklayer does a pretty good job of staying out of your way and allowing you to work. Just remember the few ground rules and use what you feel like using. Bricklayer isn't a full fledged application. It's just a toolkit and framework to build your application on. I hope you find it useful to use.
+\end{document}

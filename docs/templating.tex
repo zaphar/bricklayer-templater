@@ -1,0 +1,70 @@
+\chapter{BrickLayer Templating}
+\section{Templating Overview}
+Bricklayer templating is both extremely simple and very powerful. The Templater is called with one of two Bricklayer methods
+\begin{itemize}
+\item run\_sequencer(\&templatetext, \&tagid, \$paramsref);
+\item run\_templater(\$templatefilename, \$tagid, \$paramsref);
+\end{itemize}
+run\_sequencer gets passed a scalar string of text that it will run the templating engine on. run\_templater gets passed the filename of a template that it will run the templating engine on. the other two arguments are optional. \$tagid is your template tag identifier. This value identifies your template tags. \$paramsref is a reference to an array of parameters which you can pass to your template tags. Most people won't need this but feel free to use it if you want. Now if you want to pass some parameters but don't want to pass the tagid then you'll have to pass an undefined value for tag id since it expects the arguments in that order. If you don't specify a tagid the default is BK. All template handlers must be in the templater/handler subdirectory of your BrickLayer root directory or a directory under that one.
+\section{An example handler}
+Now that we now how to call the templating engine we need to write a handler. The following is an example skeleton of a valid template handler. Template handlers are very simple to write. The inherit from the lib::common::template\_handler super class. They also need only one method and no package data. You can of course have more if you wish but BrickLayer doesn't need anything else to run your handler.
+\newpage
+\begin{verbatim}
+package default;
+use lib::common::template_handler;
+use base qw(template_handler);
+
+sub run {
+    my $self = shift;
+    my $Params = shift;
+    
+    return "wheeee!!!! I handled a template tag";   
+}
+
+
+return 1;
+\end{verbatim}
+The run method is required and will be passed one argument which will be an array of any parameters that bricklayer has for your handler. The Template's token object is stored in the \verb|$Self->{Token}| key. It is a has containing the following elements. It refers to the information about itself that the parser was able to determine.
+\begin{verbatim}
+$Token->{tagname); #The name of the template tag
+$Token->{block};  #The contents of the template tag
+$Token->{type); #The type of the template tag
+$Token->{attributes}; #A hash of attribute name,value pairs 
+                      #for the template tag
+\end{verbatim}
+The block or contents of the tag are unparsed by the engine. If your tag is expected to contain template text with template tags then it must call the templating engine for that text. One last detail to keep in mind when writing the template handler is binding tags to an action. When Bricklayer loads the handler for your tag it looks for an attribute called action in the tag. If that attribute exists bricklayer will automatically load and run that action plugin and store the results in the \verb|$self->{data} key| for use by the plugin. This nifty little feature will let you bind an action plugins output to a template tag.
+\section{Writing Templates}
+\subsection*{Template Locations}
+If your going to use the run\_templater method in your app (and this is recommended) then your templates will need to be in the templates subdirectory of the Bricklayer root directory or a diectory under this one. Using the run\_templater method gives you one useful benefit. Automatic handling of subdirectories in the template directory location. Believe me if you have a lot of templates this can be a lifesaver. It does this by the simple expedient of seperating out directories with the : character. For instance a page request formatted like this: gallery:thumbnails will look for the template in the gallery subdirectory of the templates directory. Usually a Bricklayer template has an extension of .txml. This is not a hard and fast rule though so feel free to break it if you really want to. Of course if you do then the provided execute and execute\_web Bricklayer methods won't work since they expect the extension to be .txml You can nest template tags as deep as the tag handler will allow. Just remember that if you use a template tag as a container tag the handler has to parse the contents. So pay attention to what your tags will be expected to do. Template tags can occur anywhere in the template. Even though they look like XML elements they don't have to obey the rules of an xml element. They can occur inside xml or html elements. Here is an example template.
+\begin{verbatim}
+<html>
+<head> 
+	<meta content="" />
+	<title>Default Index - testing</title>	
+</head>
+<body>
+
+<div id="menu_main">
+	<ul>
+	<BKmenu>
+		<li><BKmenu_item /></li>
+	</BKmenu>
+	</ul>
+</div>
+
+<div style="<BKstyle />" id="bklog">
+	<BKbk_log />
+</div>
+</body>
+</html>
+\end{verbatim}
+Note the BK identifiers on the elements. This is the default indentifier for Bricklayer templates but it is cusomizable. Also the template tags can appear inside attributes and nest inside each other. Each tag will be replaced in the document with whatever it's handler returns. Tag's can appear literally anywhere in the document. There some rules to keep in mind though. Container tags can't cross each other's boundaries or there will be an error in the sequencer. This will cause the sequencer to error for example:
+\begin{verbatim}
+<BKtag1>
+<BKtag2>
+</BKtag1> These two tags cross each others boundaries.
+</BKtag2>
+\end{verbatim}
+Container tags must also close themselves or the results will be unpredictable.
+\par
+As you can see we leave you a lot of room to maneuver in the tag handlers.  Container tags will probably be used for looping and conditional processing. You can literally create your own Coldfusion like language with this engine. Feel free to use them however you feel like. They do one thing and one thing well. The rest is up to you.

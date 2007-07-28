@@ -1,0 +1,72 @@
+\chapter{Plugin Development}
+\section{Bricklayer Plugins overview}
+BrickLayer Plugins come in 6 different flavors and two general types. There are on demand loading plugins, and preloaded plugins. From these two general types there are the 6 flavors:
+\begin{itemize}
+\item access
+\item action
+\item content
+\item data
+\item error
+\item publish
+\end{itemize}
+\section{An Example Plugin}
+We've already taken a look at what each kind of plugin handles. Now lets take a look at what you need to have a working plugin. The following page contains an example of a working skeleton for a plugin. It shows all the requried elements for a working Bricklayer Plugin. It doesn't really do anything but it will load and run in Bricklayer. A BrickLayer Plugin requires one MetaData hash, and at least the following method and library:
+\begin{itemize}
+\item use lib::common::plugin;
+\item use base qw(plugin);
+\item run();
+\end{itemize}
+The method and libraries are pretty self explanatory. The two use statements make your plugin a proper Bricklayer plugin by using the lib::common::plugin module as a superclass. run() gets called when Bricklayer runs the plugin automatically. This is a required method for any plugins that get loaded when Bricklayer is loaded and are run automatically. Depending on how you use Bricklayer this could be any one of the plugin types so it is advised to use this method in all your plugins as the main execution point.
+\newpage
+\begin{verbatim}
+#---------------------------------------------
+# 
+# File: default.pm
+# Version: 0.1
+# Author: Jeremy Wall
+# Definition: 
+#
+#---------------------------------------------
+package default;
+use lib::common::plugin;
+use base qw(plugin);
+
+my %MetaData = (Name => "default",
+		Type => "Action",
+		Author => "Author",
+		Version => "0.1",
+		URI => "http://someurl/",
+		);
+
+sub run {
+	my $self = shift;	
+	return "Whee!!!!! my plugin loaded";
+}
+return 1;
+\end{verbatim}
+\newpage
+\section{The Plugin Types}
+\textit{and where they are used}
+\\
+\subsection{Access Plugins}
+Access plugins are preloaded by bricklayer. Access plugins store session information. They tell you if your logged in and what role or level you are logged in as. Access plugins have several responsibilities. The first and most important is their response to the check\_session method. Bricklayer provides the check\_session method as a means of checking the most common session values. Access plugins are expected to return the following values when the following methods are called on them like so:
+\begin{verbatim}
+$session{login} = $access_plugin->login; # boolean value
+if ($session{login} == 1) {
+	$session{name} = $access_plugin->name;
+	$session{sessionid} = $access_plugin->session_id;
+	$session{level} = $access_plugin->level;
+	$session{role} = $access_plugin->role;
+}	
+\end{verbatim}
+login indicates whether the current session is logged in. If it is then name, sessionid, level, and role are retrieved using their respectively named methods. The access plugin is also responsible for storing any additional session variables in the Bricklayer environment hash. There is no expected method to retrieve these. Any plugins and template tag handlers you write can use the check\_session method to see if the current session has the right to run them and respond accordingly. The check\_session method will return a session hash like the one demonstrated above. The access plugin is also responsible for storing the session information in whatever fashion you want them to. This can be in a file, database, or cookie if you prefer.
+\subsection{Action Plugins}
+Action Plugins are stored in the plugins/action directory. They are general purpose plugins. They will get called automatically by the execute and execute web convenience methods if you use them, or can be called at will by template tag handlers, or your application, or other plugins. Typically these plugins contain your application logic. They do the things your app is supposed to do. They may use the publish method to write to the disk. They may store things in the database. They may retrieve things from the database. In short use them for anything your feel like using them for. I will often bind an action plugin to a template tag using an attribute. These are the general purpose plugin that enables you to seperate your presentation and data from your application logic.
+\subsection{Content Plugins}
+Content Plugins are preloaded by Bricklayer. They get called by Bricklayer automatically during the publish method. These plugins are expected to act as filters for whatever gets published. Use them sparingly. Running too many of these could slow your app down significantly. Often these plugins will need to take a look at the environment and publish type to decide if they should run at all. The content to publish will be the first argument passed to these. Don't forget that the Bricklayer Object was passed when the plugin loaded so if you kept it then you will have access to the environment and plugins through that.
+\subsection{Data Plugins}
+Data plugins get loaded by the default\_db\_driver() method usually. This method loads the driver specified in the App.conf file with a line like so: dbHandler=default This driver will be used when new\_db\_conn() gets called. This can help you make sure all your plugins use the same db driver automatically. Feel free to not use it though. In the future this class of plugins will be imbued with a great deal more functionality.
+\subsection{Error Plugins}
+Error plugins are preloaded and get called by Bricklayer when it encounters a fatal error or wishes to log something. Error plugins will get passed a message and message type. The two predefined types are fatal and log. Fatal errors mean Bricklayer can no longer continue and must die. The error handler plugins don't have to handle this if they don't want to since Bricklayer will do it automatically. log messages mean Bricklayer just want's to preserve this for posterity. Error handlers may want to write it to a file or or store it elsewhere. Bricklayer also provides a convenient repository for log messages in the \$BK\_Obj->{Log} location. You may wish your handler to store them there. Heck you might even want a handler to provide an XML feed of fatal or log messages for you to keep track of. Why Not?
+\subsection{Publish Plugins}
+Publish Plugins are called by the publish method. The publish type argument passed to the publish method should correspond to a publish plugin's name. The publish plugin is then responsible for publishing the page it was passed. If the plugin can't be found then the publish method will fall back to the default web publish type.
