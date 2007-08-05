@@ -4,10 +4,6 @@ use base qw{Bricklayer::Class::Builder Bricklayer::Config};
 use Bricklayer::Templater::Sequencer;
 use Carp;
 
-sub handlers {
-	$_[0]->{HandlerList} = Bricklayer::Templater::Store->new($_[0], $_[0]->{WD}) unless ref($_[0]->{HandlerList}) eq 'Bricklayer::Templater::Store';
-	return $_[0]->{HandlerList};	
-}
 
 sub load_template_file {
 	my $extension = $_[0]->config()->{template_ext} || 'txml';
@@ -48,6 +44,7 @@ sub run_templater {
 	close TEMPLATE;
 	my $ParsedPage = $_[0]->run_sequencer($Template, $tagID, $Params, $_[0]->{WD});	
 	#return $ParsedPage;
+	return 1;
 }
 
 sub run_sequencer {

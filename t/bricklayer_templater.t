@@ -42,11 +42,29 @@ plan tests =>  1 # test that module can be loaded
     is($TEMPLATE, $t->load_template_file('test'), 'successfully loaded template');
     is($TEMPLATE, $t->load_template_file('tmpl::test'), 'successfully loaded template with :: syntax');
 }
+
 my $p;
-# TODO need to mock the publish method?
 {
     $t->run_sequencer($TEMPLATE);
     ok($p = $t->_page(), 'Successfully Called publish Callback');
     is($p, $ep, 'template text matches expected result');
-    
+}
+
+{
+    ok($t->run_templater('test'), 'successfully loaded template');
+    ok($t->run_templater('tmpl::test'), 'successfully loaded template with :: syntax');
+}
+
+{
+    ok($p = $t->_page(), 'Successfully Called publish Callback');
+    is($p, $ep, 'template text matches expected result');
+}
+
+my $var1 = '   foo';
+my $var2 = 'bar   ';
+
+{
+    is(Bricklayer::Templater::Parser::mytrim($var1), 'foo', 'successfully removed whitespace from the beginning of string');
+    is(Bricklayer::Templater::Parser::mytrim($var22), 'bar', 'successfully removed whitespace from the end of string');
+
 }
