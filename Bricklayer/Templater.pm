@@ -4,6 +4,15 @@ use base qw{Bricklayer::Class::Builder Bricklayer::Config};
 use Bricklayer::Templater::Sequencer;
 use Carp;
 
+sub new {
+    my $obj = shift->SUPER::new(@_)
+        or return;
+    $obj->ext('txml');
+    $obj->start_bracket('<');
+    $obj->end_bracket('>');
+    $obj->identifier('BK');
+    return $obj;
+}
 
 sub load_template_file {
 	my $extension = $_[0]->config()->{template_ext} || 'txml';
@@ -59,11 +68,55 @@ sub run_sequencer {
 
 sub publish {
 	$self = shift;
-	$self->{Page} .= join('', @_);
+    warn "called with ".scalar @_." args [", join('|', @_)."]";
+	$self->{_page} .= join('', @_);
+} 
+
+sub clear {
+    $self = shift;
+    $self->{_page} = undef;
+}
+
+sub start_bracket {
+   my $self = shift;
+   my $var = shift;
+   $self->{start_bracket} = $var if $var;
+   return $self->{start_bracket};
+}
+
+sub end_bracket {
+   my $self = shift;
+   my $var = shift;
+   $self->{end_bracket} = $var if $var;
+   return $self->{end_bracket};
+}
+
+sub ext {
+   my $self = shift;
+   my $var = shift;
+   $self->{ext} = $var if $var;
+   return $self->{ext};
+}
+
+sub identifier {
+   my $self = shift;
+   my $var = shift;
+   $self->{identifier} = $var if $var;
+   return $self->{identifier};
+}
+
+sub _template {
+   my $self = shift;
+   my $var = shift;
+   $self->{template} = $var if $var;
+   return $self->{template};
 }
 
 sub _page {
    my $self = shift;
-   return $self->{Page};
+   my $var = shift;
+   $self->{_page} = $var if $var;
+   return $self->{_page};
 }
+
 return 1;

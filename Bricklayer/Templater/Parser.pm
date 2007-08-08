@@ -17,6 +17,7 @@ package Bricklayer::Templater::Parser;
 
 require Exporter;
 use strict;
+use Carp;
 
 our @ISA = qw(Exporter);
 our @EXPORT = qw(parse_text parse_attributes);
