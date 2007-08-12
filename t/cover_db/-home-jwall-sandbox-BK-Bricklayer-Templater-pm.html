@@ -20,108 +20,114 @@ http://www.pjcj.net
 <h1>File Coverage</h1>
 <table>
 <tr><td class="h" align="right">File:</td><td align="left">/home/jwall/sandbox/BK/Bricklayer/Templater.pm</td></tr>
-<tr><td class="h" align="right">Coverage:</td><td align="left" class="c2">95.4%</td></tr>
+<tr><td class="h" align="right">Coverage:</td><td align="left" class="c2">95.7%</td></tr>
 </table>
 <div><br/></div>
 <table>
 <tr><th>line</th><th>stmt</th><th>bran</th><th>cond</th><th>sub</th><th>time</th><th>code</th></tr>
 <tr><td class="h">1</td><td></td><td></td><td></td><td></td><td></td><td class="s">package Bricklayer::Templater;</td></tr>
-<tr><td class="h">2</td><td colspan="6"></td></tr><tr><td class="h">3</td><td><div class="c3">1</div><div class="c3">1</div><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L3">1</a></div></td><td><div>5</div><div>3</div><div>19</div></td><td class="s">use base qw{Bricklayer::Class::Builder Bricklayer::Config};</td></tr>
-<tr><td class="h">4</td><td><div class="c3">1</div><div class="c3">1</div><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L4">1</a></div></td><td><div>14</div><div>3</div><div>9</div></td><td class="s">use Bricklayer::Templater::Sequencer;</td></tr>
-<tr><td class="h">5</td><td><div class="c3">1</div><div class="c3">1</div><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L5">1</a></div></td><td><div>8</div><div>3</div><div>5</div></td><td class="s">use Carp;</td></tr>
-<tr><td class="h">6</td><td colspan="6"></td></tr><tr><td class="h">7</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub new {</td></tr>
-<tr><td class="h">8</td><td><div class="c3">3</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L8">100</a></div></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L8">3</a></div></td><td><div>52</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $obj = shift-&gt;SUPER::new(@_)</td></tr>
-<tr><td class="h">9</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or return;</td></tr>
-<tr><td class="h">10</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$obj-&gt;ext(&#39;txml&#39;);</td></tr>
-<tr><td class="h">11</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$obj-&gt;start_bracket(&#39;&lt;&#39;);</td></tr>
-<tr><td class="h">12</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$obj-&gt;end_bracket(&#39;&gt;&#39;);</td></tr>
-<tr><td class="h">13</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$obj-&gt;identifier(&#39;BK&#39;);</td></tr>
-<tr><td class="h">14</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;return $obj;</td></tr>
-<tr><td class="h">15</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">16</td><td colspan="6"></td></tr><tr><td class="h">17</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub load_template_file {</td></tr>
-<tr><td class="h">18</td><td><div class="c3">3</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L18">3</a></div></td><td><div>9</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">19</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $filename = shift;</td></tr>
-<tr><td class="h">20</td><td><div class="c3">3</div></td><td></td><td><div class="c0"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--condition.html#L20">50</a></div></td><td></td><td><div>25</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $extension = $self-&gt;config()-&gt;{template_ext} || &#39;txml&#39;;</td></tr>
-<tr><td class="h">21</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>14</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $TemplateFile = $self-&gt;{WD}.&quot;/templates/&quot;.$filename;</td></tr>
-<tr><td class="h">22</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$TemplateFile .= &quot;.$extension&quot;;</td></tr>
-<tr><td class="h">23</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>14</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$TemplateFile =~ s/::/\//g; # use double colon to indicate template directory seperators</td></tr>
-<tr><td class="h">24</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#confess(&quot;the template file is: $TemplateFile&quot;, &quot;log&quot;);</td></tr>
-<tr><td class="h">25</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $TemplateObj;</td></tr>
-<tr><td class="h">26</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $Template;</td></tr>
-<tr><td class="h">27</td><td><div class="c3">3</div></td><td><div class="c0" title="-/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L27">50</a></div></td><td></td><td></td><td><div>60</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;open( TEMPLATE, $TemplateFile )</td></tr>
-<tr><td class="h">28</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or croak(&quot;Cannot open Template File: $TemplateFile &quot;);</td></tr>
-<tr><td class="h">29</td><td colspan="6"></td></tr><tr><td class="h">30</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>69</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while ( read( TEMPLATE, my $line, 1000 ) ) {</td></tr>
-<tr><td class="h">31</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>22</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Template .= $line;</td></tr>
-<tr><td class="h">32</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</td></tr>
-<tr><td class="h">33</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chomp $Template;</td></tr>
-<tr><td class="h">34</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>19</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;close TEMPLATE;</td></tr>
-<tr><td class="h">35</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>14</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$self-&gt;_template($Template);</td></tr>
-<tr><td class="h">36</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>18</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;return $Template;</td></tr>
-<tr><td class="h">37</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">38</td><td colspan="6"></td></tr><tr><td class="h">39</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub run_templater {</td></tr>
-<tr><td class="h">40</td><td><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L40">1</a></div></td><td><div>3</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">41</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $filename = shift;</td></tr>
-<tr><td class="h">42</td><td><div class="c3">1</div></td><td><div class="c0" title="-/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L42">50</a></div></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$self-&gt;load_template_file($filename)</td></tr>
-<tr><td class="h">43</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or croak(&#39;Failed to loadi [&#39;. $filename. &#39;] template&#39;);</td></tr>
-<tr><td class="h">44</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $ParsedPage = $self-&gt;run_sequencer($self-&gt;_template, $tagID, $Params, $self-&gt;{WD});	</td></tr>
-<tr><td class="h">45</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1;</td></tr>
-<tr><td class="h">46</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">47</td><td colspan="6"></td></tr><tr><td class="h">48</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub run_sequencer {</td></tr>
-<tr><td class="h">49</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L49">2</a></div></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">50</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $Template = shift;</td></tr>
-<tr><td class="h">51</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $tagID = shift;</td></tr>
-<tr><td class="h">52</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $Params = shift;</td></tr>
-<tr><td class="h">53</td><td><div class="c3">2</div></td><td></td><td><div class="c0"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--condition.html#L53">67</a></div></td><td></td><td><div>18</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $handler_loc = shift || $self-&gt;{WD};</td></tr>
-<tr><td class="h">54</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>14</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $TemplateObj = Bricklayer::Templater::Sequencer-&gt;new_sequencer($Template, $tagID);</td></tr>
-<tr><td class="h">55</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $ParsedPage = $TemplateObj-&gt;return_parsed($self, $Params, $handler_loc);</td></tr>
-<tr><td class="h">56</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#return $ParsedPage;</td></tr>
-<tr><td class="h">57</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">58</td><td colspan="6"></td></tr><tr><td class="h">59</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub publish {</td></tr>
-<tr><td class="h">60</td><td><div class="c3">4</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L60">4</a></div></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$self = shift;</td></tr>
-<tr><td class="h">61</td><td><div class="c3">4</div></td><td></td><td></td><td></td><td><div>203</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;warn &quot;called with &quot;.scalar @_.&quot; args [&quot;, join(&#39;|&#39;, @_).&quot;]&quot;;</td></tr>
-<tr><td class="h">62</td><td><div class="c3">4</div></td><td></td><td></td><td></td><td><div>83</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$self-&gt;{_page} .= join(&#39;&#39;, @_);</td></tr>
-<tr><td class="h">63</td><td></td><td></td><td></td><td></td><td></td><td class="s">} </td></tr>
-<tr><td class="h">64</td><td colspan="6"></td></tr><tr><td class="h">65</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub clear {</td></tr>
-<tr><td class="h">66</td><td><div class="c3">3</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L66">3</a></div></td><td><div>12</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$self = shift;</td></tr>
-<tr><td class="h">67</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$self-&gt;{_page} = undef;</td></tr>
-<tr><td class="h">68</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">69</td><td colspan="6"></td></tr><tr><td class="h">70</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub start_bracket {</td></tr>
-<tr><td class="h">71</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L71">2</a></div></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">72</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
-<tr><td class="h">73</td><td><div class="c3">2</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L73">100</a></div></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{start_bracket} = $var if $var;</td></tr>
-<tr><td class="h">74</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{start_bracket};</td></tr>
-<tr><td class="h">75</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">76</td><td colspan="6"></td></tr><tr><td class="h">77</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub end_bracket {</td></tr>
-<tr><td class="h">78</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L78">2</a></div></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">79</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
-<tr><td class="h">80</td><td><div class="c3">2</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L80">100</a></div></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{end_bracket} = $var if $var;</td></tr>
-<tr><td class="h">81</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{end_bracket};</td></tr>
-<tr><td class="h">82</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">83</td><td colspan="6"></td></tr><tr><td class="h">84</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub ext {</td></tr>
-<tr><td class="h">85</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L85">2</a></div></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">86</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
-<tr><td class="h">87</td><td><div class="c3">2</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L87">100</a></div></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{ext} = $var if $var;</td></tr>
-<tr><td class="h">88</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{ext};</td></tr>
-<tr><td class="h">89</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">90</td><td colspan="6"></td></tr><tr><td class="h">91</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub identifier {</td></tr>
-<tr><td class="h">92</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L92">2</a></div></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">93</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
-<tr><td class="h">94</td><td><div class="c3">2</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L94">100</a></div></td><td></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{identifier} = $var if $var;</td></tr>
-<tr><td class="h">95</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>9</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{identifier};</td></tr>
-<tr><td class="h">96</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">97</td><td colspan="6"></td></tr><tr><td class="h">98</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub _template {</td></tr>
-<tr><td class="h">99</td><td><div class="c3">5</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L99">5</a></div></td><td><div>20</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">100</td><td><div class="c3">5</div></td><td></td><td></td><td></td><td><div>16</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
-<tr><td class="h">101</td><td><div class="c3">5</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L101">100</a></div></td><td></td><td></td><td><div>23</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{template} = $var if $var;</td></tr>
-<tr><td class="h">102</td><td><div class="c3">5</div></td><td></td><td></td><td></td><td><div>36</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{template};</td></tr>
-<tr><td class="h">103</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">104</td><td colspan="6"></td></tr><tr><td class="h">105</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub _page {</td></tr>
-<tr><td class="h">106</td><td><div class="c3">3</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L106">3</a></div></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
-<tr><td class="h">107</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>9</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
-<tr><td class="h">108</td><td><div class="c3">3</div></td><td><div class="c0" title="-/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L108">50</a></div></td><td></td><td></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{_page} = $var if $var;</td></tr>
-<tr><td class="h">109</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>20</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{_page};</td></tr>
-<tr><td class="h">110</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
-<tr><td class="h">111</td><td colspan="6"></td></tr><tr><td class="h">112</td><td></td><td></td><td></td><td></td><td></td><td class="s">return 1;</td></tr>
+<tr><td class="h">2</td><td colspan="6"></td></tr><tr><td class="h">3</td><td><div class="c3">1</div><div class="c3">1</div><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L3">1</a></div></td><td><div>11</div><div>3</div><div>9</div></td><td class="s">use Bricklayer::Templater::Sequencer;</td></tr>
+<tr><td class="h">4</td><td><div class="c3">1</div><div class="c3">1</div><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L4">1</a></div></td><td><div>7</div><div>3</div><div>6</div></td><td class="s">use Carp;</td></tr>
+<tr><td class="h">5</td><td colspan="6"></td></tr><tr><td class="h">6</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub new {</td></tr>
+<tr><td class="h">7</td><td><div class="c3">3</div><div class="c3">1</div><div class="c3">1</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L7">100</a></div></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L7">3</a></div></td><td><div>18</div><div>6</div><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;do {carp($_[0].&quot; Requires a working directory&quot;); return; } unless defined $_[2];</td></tr>
+<tr><td class="h">8</td><td><div class="c3">2</div><div class="c3">1</div><div class="c3">1</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L8">100</a></div></td><td></td><td></td><td><div>9</div><div>9</div><div>9</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;do {carp($_[0].&quot; Requires a context&quot;); return; } unless defined $_[1];</td></tr>
+<tr><td class="h">9</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $obj = bless({App =&gt; $_[1], WD =&gt; $_[2]}, $_[0]);</td></tr>
+<tr><td class="h">10</td><td colspan="6"></td></tr><tr><td class="h">11</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$obj-&gt;ext(&#39;txml&#39;);</td></tr>
+<tr><td class="h">12</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$obj-&gt;start_bracket(&#39;&lt;&#39;);</td></tr>
+<tr><td class="h">13</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$obj-&gt;end_bracket(&#39;&gt;&#39;);</td></tr>
+<tr><td class="h">14</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$obj-&gt;identifier(&#39;BK&#39;);</td></tr>
+<tr><td class="h">15</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;return $obj;</td></tr>
+<tr><td class="h">16</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">17</td><td colspan="6"></td></tr><tr><td class="h">18</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub load_template_file {</td></tr>
+<tr><td class="h">19</td><td><div class="c3">3</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L19">3</a></div></td><td><div>9</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">20</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $filename = shift;</td></tr>
+<tr><td class="h">21</td><td><div class="c3">3</div></td><td></td><td><div class="c0"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--condition.html#L21">50</a></div></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $extension = $self-&gt;ext() || &#39;txml&#39;;</td></tr>
+<tr><td class="h">22</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>15</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $TemplateFile = $self-&gt;{WD}.&quot;/templates/&quot;.$filename;</td></tr>
+<tr><td class="h">23</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$TemplateFile .= &quot;.$extension&quot;;</td></tr>
+<tr><td class="h">24</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>14</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$TemplateFile =~ s/::/\//g; # use double colon to indicate template directory seperators</td></tr>
+<tr><td class="h">25</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#confess(&quot;the template file is: $TemplateFile&quot;, &quot;log&quot;);</td></tr>
+<tr><td class="h">26</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $TemplateObj;</td></tr>
+<tr><td class="h">27</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $Template;</td></tr>
+<tr><td class="h">28</td><td><div class="c3">3</div></td><td><div class="c0" title="-/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L28">50</a></div></td><td></td><td></td><td><div>65</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;open( TEMPLATE, $TemplateFile )</td></tr>
+<tr><td class="h">29</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or croak(&quot;Cannot open Template File: $TemplateFile &quot;);</td></tr>
+<tr><td class="h">30</td><td colspan="6"></td></tr><tr><td class="h">31</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>76</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while ( read( TEMPLATE, my $line, 1000 ) ) {</td></tr>
+<tr><td class="h">32</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>20</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$Template .= $line;</td></tr>
+<tr><td class="h">33</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</td></tr>
+<tr><td class="h">34</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chomp $Template;</td></tr>
+<tr><td class="h">35</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>20</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;close TEMPLATE;</td></tr>
+<tr><td class="h">36</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$self-&gt;_template($Template);</td></tr>
+<tr><td class="h">37</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>18</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;return $Template;</td></tr>
+<tr><td class="h">38</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">39</td><td colspan="6"></td></tr><tr><td class="h">40</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub run_templater {</td></tr>
+<tr><td class="h">41</td><td><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L41">1</a></div></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">42</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $filename = shift;</td></tr>
+<tr><td class="h">43</td><td><div class="c3">1</div></td><td><div class="c0" title="-/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L43">50</a></div></td><td></td><td></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$self-&gt;load_template_file($filename)</td></tr>
+<tr><td class="h">44</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or croak(&#39;Failed to loadi [&#39;. $filename. &#39;] template&#39;);</td></tr>
+<tr><td class="h">45</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $ParsedPage = $self-&gt;run_sequencer($self-&gt;_template, $tagID, $Params, $self-&gt;{WD});	</td></tr>
+<tr><td class="h">46</td><td><div class="c3">1</div></td><td></td><td></td><td></td><td><div>4</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1;</td></tr>
+<tr><td class="h">47</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">48</td><td colspan="6"></td></tr><tr><td class="h">49</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub run_sequencer {</td></tr>
+<tr><td class="h">50</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L50">2</a></div></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">51</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $Template = shift;</td></tr>
+<tr><td class="h">52</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $tagID = shift;</td></tr>
+<tr><td class="h">53</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $Params = shift;</td></tr>
+<tr><td class="h">54</td><td><div class="c3">2</div></td><td></td><td><div class="c0"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--condition.html#L54">67</a></div></td><td></td><td><div>18</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $handler_loc = shift || $self-&gt;{WD};</td></tr>
+<tr><td class="h">55</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $TemplateObj = Bricklayer::Templater::Sequencer-&gt;new_sequencer($Template, $tagID);</td></tr>
+<tr><td class="h">56</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;my $ParsedPage = $TemplateObj-&gt;return_parsed($self, $Params, $handler_loc);</td></tr>
+<tr><td class="h">57</td><td></td><td></td><td></td><td></td><td></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#return $ParsedPage;</td></tr>
+<tr><td class="h">58</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">59</td><td colspan="6"></td></tr><tr><td class="h">60</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub publish {</td></tr>
+<tr><td class="h">61</td><td><div class="c3">4</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L61">4</a></div></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$self = shift;</td></tr>
+<tr><td class="h">62</td><td><div class="c3">4</div></td><td></td><td></td><td></td><td><div>367</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;warn &quot;called with &quot;.scalar @_.&quot; args [&quot;, join(&#39;|&#39;, @_).&quot;]&quot;;</td></tr>
+<tr><td class="h">63</td><td><div class="c3">4</div></td><td></td><td></td><td></td><td><div>66</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$self-&gt;{_page} .= join(&#39;&#39;, @_);</td></tr>
+<tr><td class="h">64</td><td></td><td></td><td></td><td></td><td></td><td class="s">} </td></tr>
+<tr><td class="h">65</td><td colspan="6"></td></tr><tr><td class="h">66</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub clear {</td></tr>
+<tr><td class="h">67</td><td><div class="c3">3</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L67">3</a></div></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$self = shift;</td></tr>
+<tr><td class="h">68</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;$self-&gt;{_page} = undef;</td></tr>
+<tr><td class="h">69</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">70</td><td colspan="6"></td></tr><tr><td class="h">71</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub start_bracket {</td></tr>
+<tr><td class="h">72</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L72">2</a></div></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">73</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>12</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
+<tr><td class="h">74</td><td><div class="c3">2</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L74">100</a></div></td><td></td><td></td><td><div>12</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{start_bracket} = $var if $var;</td></tr>
+<tr><td class="h">75</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>9</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{start_bracket};</td></tr>
+<tr><td class="h">76</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">77</td><td colspan="6"></td></tr><tr><td class="h">78</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub end_bracket {</td></tr>
+<tr><td class="h">79</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L79">2</a></div></td><td><div>8</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">80</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
+<tr><td class="h">81</td><td><div class="c3">2</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L81">100</a></div></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{end_bracket} = $var if $var;</td></tr>
+<tr><td class="h">82</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{end_bracket};</td></tr>
+<tr><td class="h">83</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">84</td><td colspan="6"></td></tr><tr><td class="h">85</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub ext {</td></tr>
+<tr><td class="h">86</td><td><div class="c3">5</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L86">5</a></div></td><td><div>17</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">87</td><td><div class="c3">5</div></td><td></td><td></td><td></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
+<tr><td class="h">88</td><td colspan="6"></td></tr><tr><td class="h">89</td><td><div class="c3">5</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L89">100</a></div></td><td></td><td></td><td><div>25</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{ext} = $var if $var;</td></tr>
+<tr><td class="h">90</td><td><div class="c3">5</div></td><td></td><td></td><td></td><td><div>32</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{ext};</td></tr>
+<tr><td class="h">91</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">92</td><td colspan="6"></td></tr><tr><td class="h">93</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub identifier {</td></tr>
+<tr><td class="h">94</td><td><div class="c3">2</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L94">2</a></div></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">95</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>5</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
+<tr><td class="h">96</td><td><div class="c3">2</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L96">100</a></div></td><td></td><td></td><td><div>11</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{identifier} = $var if $var;</td></tr>
+<tr><td class="h">97</td><td><div class="c3">2</div></td><td></td><td></td><td></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{identifier};</td></tr>
+<tr><td class="h">98</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">99</td><td colspan="6"></td></tr><tr><td class="h">100</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub _template {</td></tr>
+<tr><td class="h">101</td><td><div class="c3">5</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L101">5</a></div></td><td><div>17</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">102</td><td><div class="c3">5</div></td><td></td><td></td><td></td><td><div>17</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
+<tr><td class="h">103</td><td><div class="c3">5</div></td><td><div class="c3" title="T/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L103">100</a></div></td><td></td><td></td><td><div>22</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{template} = $var if $var;</td></tr>
+<tr><td class="h">104</td><td><div class="c3">5</div></td><td></td><td></td><td></td><td><div>24</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{template};</td></tr>
+<tr><td class="h">105</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">106</td><td colspan="6"></td></tr><tr><td class="h">107</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub _page {</td></tr>
+<tr><td class="h">108</td><td><div class="c3">3</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L108">3</a></div></td><td><div>10</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $self = shift;</td></tr>
+<tr><td class="h">109</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>9</div></td><td class="s">&nbsp;&nbsp;&nbsp;my $var = shift;</td></tr>
+<tr><td class="h">110</td><td><div class="c3">3</div></td><td><div class="c0" title="-/F"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--branch.html#L110">50</a></div></td><td></td><td></td><td><div>13</div></td><td class="s">&nbsp;&nbsp;&nbsp;$self-&gt;{_page} = $var if $var;</td></tr>
+<tr><td class="h">111</td><td><div class="c3">3</div></td><td></td><td></td><td></td><td><div>19</div></td><td class="s">&nbsp;&nbsp;&nbsp;return $self-&gt;{_page};</td></tr>
+<tr><td class="h">112</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">113</td><td colspan="6"></td></tr><tr><td class="h">114</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub app {</td></tr>
+<tr><td class="h">115</td><td><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L115">1</a></div></td><td><div>6</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $_[0]-&gt;{App};</td></tr>
+<tr><td class="h">116</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">117</td><td colspan="6"></td></tr><tr><td class="h">118</td><td></td><td></td><td></td><td></td><td></td><td class="s">sub WD {</td></tr>
+<tr><td class="h">119</td><td><div class="c3">1</div></td><td></td><td></td><td><div class="c3"><a href="-home-jwall-sandbox-BK-Bricklayer-Templater-pm--subroutine.html#L119">1</a></div></td><td><div>7</div></td><td class="s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $_[0]-&gt;{WD};	</td></tr>
+<tr><td class="h">120</td><td></td><td></td><td></td><td></td><td></td><td class="s">}</td></tr>
+<tr><td class="h">121</td><td></td><td></td><td></td><td></td><td></td><td class="s">return 1;</td></tr>
 </table>
 </body>
 </html>

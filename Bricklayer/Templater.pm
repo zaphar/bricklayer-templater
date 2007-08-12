@@ -1,12 +1,13 @@
 package Bricklayer::Templater;
 
-use base qw{Bricklayer::Class::Builder Bricklayer::Config};
 use Bricklayer::Templater::Sequencer;
 use Carp;
 
 sub new {
-    my $obj = shift->SUPER::new(@_)
-        or return;
+    do {carp($_[0]." Requires a working directory"); return; } unless defined $_[2];
+    do {carp($_[0]." Requires a context"); return; } unless defined $_[1];
+    my $obj = bless({App => $_[1], WD => $_[2]}, $_[0]);
+    
     $obj->ext('txml');
     $obj->start_bracket('<');
     $obj->end_bracket('>');
@@ -15,8 +16,10 @@ sub new {
 }
 
 sub load_template_file {
-	my $extension = $_[0]->config()->{template_ext} || 'txml';
-	my $TemplateFile = $_[0]->{WD}."/templates/".$_[1];
+    my $self = shift;
+    my $filename = shift;
+	my $extension = $self->ext() || 'txml';
+	my $TemplateFile = $self->{WD}."/templates/".$filename;
 	$TemplateFile .= ".$extension";
 	$TemplateFile =~ s/::/\//g; # use double colon to indicate template directory seperators
 	#confess("the template file is: $TemplateFile", "log");
@@ -30,39 +33,27 @@ sub load_template_file {
 	}
 	chomp $Template;
 	close TEMPLATE;
-	return $Template;
+	$self->_template($Template);
+    return $Template;
 }
 
 sub run_templater {
-	my $extension = $_[0]->config()->{template_ext} || 'txml';
-	my $TemplateFile = $_[0]->{WD}."/templates/".$_[1];
-	$TemplateFile .= ".$extension";
-	$TemplateFile =~ s/::/\//g; # use double colon to indicate template directory seperators
-	#confess("the template file is: $TemplateFile");
-	my $tagID 		 =  $_[2];
-	#confess("the tag identifier is: $tagID");
-	my $Params       = $_[3];
-	my $TemplateObj;
-	my $Template;
-	open( TEMPLATE, $TemplateFile )
-	  or croak("Cannot open Template File: $TemplateFile ");
-	
-	while ( read( TEMPLATE, my $line, 1000 ) ) {
-		$Template .= $line;
-	}
-	close TEMPLATE;
-	my $ParsedPage = $_[0]->run_sequencer($Template, $tagID, $Params, $_[0]->{WD});	
-	#return $ParsedPage;
+	my $self = shift;
+    my $filename = shift;
+    $self->load_template_file($filename)
+        or croak('Failed to loadi ['. $filename. '] template');
+    my $ParsedPage = $self->run_sequencer($self->_template, $tagID, $Params, $self->{WD});	
 	return 1;
 }
 
 sub run_sequencer {
-	my $Template = $_[1];
-	my $tagID = $_[2];
-	my $Params = $_[3];
-	my $handler_loc = $_[4] || $_[0]->{WD};
+    my $self = shift;
+	my $Template = shift;
+	my $tagID = shift;
+	my $Params = shift;
+	my $handler_loc = shift || $self->{WD};
 	my $TemplateObj = Bricklayer::Templater::Sequencer->new_sequencer($Template, $tagID);
-	my $ParsedPage = $TemplateObj->return_parsed($_[0], $Params, $handler_loc);
+	my $ParsedPage = $TemplateObj->return_parsed($self, $Params, $handler_loc);
 	#return $ParsedPage;
 }
 
@@ -94,6 +85,7 @@ sub end_bracket {
 sub ext {
    my $self = shift;
    my $var = shift;
+   
    $self->{ext} = $var if $var;
    return $self->{ext};
 }
@@ -119,4 +111,11 @@ sub _page {
    return $self->{_page};
 }
 
+sub app {
+	return $_[0]->{App};
+}
+
+sub WD {
+	return $_[0]->{WD};	
+}
 return 1;

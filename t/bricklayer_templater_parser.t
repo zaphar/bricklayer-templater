@@ -10,6 +10,7 @@ plan tests =>  1 # test that parser module can be loaded
               +3 # test that parser fails without proper setup variables
               +3 # test for simple template parsing
               +2 # test that template attributes are parsed correctly
+              +3 # test for mytrim
 	      ;
 
 my @cmp = ({type => 'container', tagname => 'common::row', attributes => {undef}, block => '<BKutil::bench></BKutil::bench>', tagid => 'BK'}, {type => 'container', tagname => 'util::tester', attributes => {undef}, block => '', tagid => 'BK'});
@@ -34,4 +35,14 @@ TODO: {
     is_deeply(\@tokens, \@cmp, 'Token Structure is correct');
     ok(@tokens = Bricklayer::Templater::Parser::parse_text($TEMPLATE2), 'Succeeded in parsing simple template with attributes');
     is_deeply(\@tokens, \@cmp2, 'Token Structure with attributes is correct');
+}
+
+my $foo = '   foo';
+my $bar = 'bar   ';
+
+# test utility functions
+{
+    can_ok(Bricklayer::Templater::Parser, 'mytrim');
+    is(Bricklayer::Templater::Parser::mytrim($foo), 'foo', 'mytrim removes whitespace in the front');    
+    is(Bricklayer::Templater::Parser::mytrim($bar), 'bar', 'mytrim removes whitespace in the back');    
 }

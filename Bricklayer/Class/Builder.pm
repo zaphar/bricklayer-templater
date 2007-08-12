@@ -16,10 +16,10 @@ sub WD {
 	return $_[0]->{WD};	
 }
 
-sub req_key {
-	my $methodname = $_[1];
-	my $packagename = ref($_[0])."::";
-	my ($confkey) = $methodname =~ /$packagename([^:]*)/;
-	return $confkey;
-}
+#sub req_key {
+#	my $methodname = $_[1];
+#	my $packagename = ref($_[0])."::";
+#	my ($confkey) = $methodname =~ /$packagename([^:]*)/;
+#	return $confkey;
+#}
 return 1;
