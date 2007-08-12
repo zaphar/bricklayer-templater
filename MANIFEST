@@ -1,8 +1,6 @@
 ./MANIFEST
 ./README
 ./t/bricklayer_templater_parser.t
-./t/templates/test.txml
-./t/templates/tmpl/test.txml
 ./t/bricklayer_templater.t
 ./lib/Bricklayer/Templater/default/text_block.pm
 ./lib/Bricklayer/Templater/default/default.pm
@@ -27,3 +25,5 @@
 ./lib/Bricklayer/Class/Util.pm
 ./lib/Bricklayer/Class/Builder.pm
 ./lib/Bricklayer/Templater.pm
+./lib/Bricklayer/Object/File.pm
+./lib/Bricklayer/Object/Time.pm
