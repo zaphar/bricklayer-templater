@@ -22,7 +22,7 @@ sub load_template_file {
 	my $TemplateFile = $self->{WD}."/templates/".$filename;
 	$TemplateFile .= ".$extension";
 	$TemplateFile =~ s/::/\//g; # use double colon to indicate template directory seperators
-	#confess("the template file is: $TemplateFile", "log");
+    warn "the template file is: $TemplateFile";
 	my $TemplateObj;
 	my $Template;
 	open( TEMPLATE, $TemplateFile )

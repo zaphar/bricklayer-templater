@@ -25,6 +25,20 @@ plan tests =>  1 # test that module can be loaded
               +1 # test that run_templater works
 	      ;
 
+BEGIN: {
+    #create our template directory and files
+    warn 'creating test templtes';
+    mkdir 'templates';
+    open FH, '>templates/test.txml';
+    print FH $TEMPLATE;
+    close FH;
+    mkdir 'templates/tmpl';
+    open FH, '>templates/tmpl/test.txml';
+    print FH $TEMPLATE;
+    close FH;
+    
+}
+
 {    
     use_ok('Bricklayer::Templater');
 }
@@ -67,3 +81,10 @@ my $p;
     ok($t->_page, 'run templater succeeds')
 }
 
+END: {
+    warn 'removing test directory';
+    unlink 'templates/tmpl/test.txml';
+    unlink 'templates/tmpl';
+    unlink 'templates/test.txml';
+    unlink 'templates';
+}
