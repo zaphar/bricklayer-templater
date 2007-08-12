@@ -42,14 +42,14 @@ sub run_templater {
     my $filename = shift;
     $self->load_template_file($filename)
         or croak('Failed to loadi ['. $filename. '] template');
-    my $ParsedPage = $self->run_sequencer($self->_template, $tagID, $Params, $self->{WD});	
+    $self->run_sequencer($self->_template, $Params);	
 	return 1;
 }
 
 sub run_sequencer {
     my $self = shift;
 	my $Template = shift;
-	my $tagID = shift;
+	my $tagID = $self->identifier();
 	my $Params = shift;
 	my $handler_loc = shift || $self->{WD};
 	my $TemplateObj = Bricklayer::Templater::Sequencer->new_sequencer($Template, $tagID);
