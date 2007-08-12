@@ -1,6 +1,7 @@
 ./MANIFEST
 ./README
 ./t/bricklayer_templater_parser.t
+./t/bricklayer_templater_handler.t
 ./t/bricklayer_templater.t
 ./lib/Bricklayer/Templater/default/text_block.pm
 ./lib/Bricklayer/Templater/default/default.pm
@@ -21,9 +22,4 @@
 ./lib/Bricklayer/Templater/Parser.pm
 ./lib/Bricklayer/Templater/Sequencer.pm
 ./lib/Bricklayer/Templater/Handler.pm
-./lib/Bricklayer/Class/Dynamic/Core.pm
-./lib/Bricklayer/Class/Util.pm
-./lib/Bricklayer/Class/Builder.pm
 ./lib/Bricklayer/Templater.pm
-./lib/Bricklayer/Object/File.pm
-./lib/Bricklayer/Object/Time.pm
