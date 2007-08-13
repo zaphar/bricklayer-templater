@@ -72,6 +72,8 @@ of the template object.
 
 =cut
 
+$VERSION='0.9'
+
 sub new {
     do {carp($_[0]." Requires a working directory"); return; } unless defined $_[2];
     do {carp($_[0]." Requires a context"); return; } unless defined $_[1];
@@ -84,9 +86,9 @@ sub new {
     return $obj;
 }
 
-=head3 my $file = $t->load_template_file('template_name')
+=head3 my load_template_file
 
-load_template_file loads a template file from the working directory
+my $file = $t->load_template_file('template_name') loads a template file from the working directory
 there are two ways to specify the template name.
 
 =head4 path/name syntax
@@ -145,7 +147,7 @@ sub run_sequencer {
 	my $handler_loc = shift || $self->{WD};
 	my $TemplateObj = Bricklayer::Templater::Sequencer->new_sequencer($Template, $tagID);
 	my $ParsedPage = $TemplateObj->return_parsed($self, $Params, $handler_loc);
-	#return $ParsedPage;
+    return;
 }
 
 sub publish {
@@ -154,9 +156,9 @@ sub publish {
 	$self->{_page} .= join('', @_);
 } 
 
-=head3 $t->clear()
+=head3 clear
 
-Clears the contents of _page() it's a convenience method. If you override
+$t->clear() Clears the contents of _page() it's a convenience method. If you override
 the publish method you might want to override this one too if you need it.
 
 =cut
@@ -228,7 +230,7 @@ return 1;
     See http://rt.cpan.org to report and view bugs
 
 =head1 COPYRIGHT
-    (C) Copywright 2007 Jeremy Wall <Jeremy@Marzhillstudios.com>
+    (C) Copyright 2007 Jeremy Wall <Jeremy@Marzhillstudios.com>
 
     This program is free software you can redistribute it and/or modify it under the same terms as Perl itself.
 
