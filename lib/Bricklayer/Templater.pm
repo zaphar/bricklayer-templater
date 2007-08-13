@@ -2,6 +2,7 @@ package Bricklayer::Templater;
 
 use Bricklayer::Templater::Sequencer;
 use Carp;
+
 =head1 NAME 
 
 Bricklayer::Templater - yet another templating system. Pure perl, highly flexible
@@ -72,7 +73,7 @@ of the template object.
 
 =cut
 
-$VERSION='0.9'
+$VERSION='0.9.1';
 
 sub new {
     do {carp($_[0]." Requires a working directory"); return; } unless defined $_[2];
