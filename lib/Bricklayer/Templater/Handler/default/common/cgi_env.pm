@@ -9,7 +9,7 @@
 #             later on. 
 #
 #--------------------------------------------------------------------------
-package common::cgi_env;
+package Bricklayer::Templater::Handler::default::common::cgi_env;
 use Bricklayer::Templater::Handler;
 use base qw(Bricklayer::Templater::Handler);
 

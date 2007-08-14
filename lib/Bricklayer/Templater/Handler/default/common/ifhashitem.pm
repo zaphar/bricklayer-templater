@@ -1,4 +1,4 @@
-package common::ifhashitem;
+package Bricklayer::Templater::Handler::default::common::ifhashitem;
 use Bricklayer::Templater::Handler;
 use base qw(Bricklayer::Templater::Handler);
 

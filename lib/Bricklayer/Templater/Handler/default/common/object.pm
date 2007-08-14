@@ -8,7 +8,7 @@
 # Note: This tags functionality has been shamelessly ripped off / inspired
 # from Template Toolkit. Many thanks Andy Wardly for the ideas.
 #--------------------------------------------------------------------------
-package common::object;
+package Bricklayer::Templater::Handler::default::common::object;
 use Bricklayer::Templater::Handler;
 use base qw(Bricklayer::Templater::Handler);
 

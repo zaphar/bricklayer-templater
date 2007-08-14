@@ -1,4 +1,4 @@
-package common::item;
+package Bricklayer::Templater::Handler::default::common::item;
 use Bricklayer::Templater::Handler;
 use base qw(Bricklayer::Templater::Handler);
 

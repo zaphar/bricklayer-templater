@@ -1,4 +1,4 @@
-package common::arrayitem;
+package Bricklayer::Templater::Handler::default::common::arrayitem;
 use Bricklayer::Templater::Handler;
 use base qw(Bricklayer::Templater::Handler);
 
