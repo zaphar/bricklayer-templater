@@ -3,9 +3,8 @@
 ./t/bricklayer_templater_parser.t
 ./t/bricklayer_templater_handler.t
 ./t/bricklayer_templater.t
-./lib/Bricklayer/Templater/Handler/util/embed.pm
-./lib/Bricklayer/Templater/Handler/util/tester.pm
 ./lib/Bricklayer/Templater/Handler/text_block.pm
+./lib/Bricklayer/Templater/Handler/default.pm
 ./lib/Bricklayer/Templater/Handler/common/object.pm
 ./lib/Bricklayer/Templater/Handler/common/hashitem.pm
 ./lib/Bricklayer/Templater/Handler/common/cgi_env.pm
@@ -15,7 +14,8 @@
 ./lib/Bricklayer/Templater/Handler/common/arrayitem.pm
 ./lib/Bricklayer/Templater/Handler/common/row.pm
 ./lib/Bricklayer/Templater/Handler/common/elsehashitem.pm
-./lib/Bricklayer/Templater/Handler/default.pm
+./lib/Bricklayer/Templater/Handler/util/embed.pm
+./lib/Bricklayer/Templater/Handler/util/tester.pm
 ./lib/Bricklayer/Templater/Parser.pm
 ./lib/Bricklayer/Templater/Sequencer.pm
 ./lib/Bricklayer/Templater/Handler.pm
