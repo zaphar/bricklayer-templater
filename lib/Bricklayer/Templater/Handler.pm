@@ -13,7 +13,7 @@ sub load {
 	
     croak "ahhh didn't get passed the Token object" unless $_[1];
     croak "ahhh didn't get passed the context object" unless $_[2];
-    $PluginObj = bless($PluginObj, ref($_[0]) || $_[0]);
+    $PluginObj = bless($PluginObj, $_[0]);
 
 	$PluginObj->load_extra()
         if $PluginObj->can('load_extra'); # optional method for handlers

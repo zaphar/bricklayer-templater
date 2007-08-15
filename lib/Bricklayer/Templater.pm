@@ -105,7 +105,7 @@ $t->load_template_file('name::space::template_name')
 sub load_template_file {
     my $self = shift;
     my $filename = shift;
-	my $extension = $self->ext() || 'txml';
+	my $extension = $self->ext();
 	my $TemplateFile = $self->{WD}."/templates/".$filename;
 	$TemplateFile .= ".$extension";
 	$TemplateFile =~ s/::/\//g; # use double colon to indicate template directory seperators
@@ -145,7 +145,7 @@ sub run_sequencer {
 	my $Template = shift;
 	my $tagID = $self->identifier();
 	my $Params = shift;
-	my $handler_loc = shift || $self->{WD};
+	my $handler_loc = $self->{WD};
 	my $TemplateObj = Bricklayer::Templater::Sequencer->new_sequencer($Template, $tagID);
 	my $ParsedPage = $TemplateObj->return_parsed($self, $Params, $handler_loc);
     return;

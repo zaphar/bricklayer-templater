@@ -13,6 +13,7 @@
 package Bricklayer::Templater::Sequencer;
 require Exporter;
 use strict;
+use Carp;
 
 use Bricklayer::Templater::Parser;
 
