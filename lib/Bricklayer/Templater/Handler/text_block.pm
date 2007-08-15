@@ -9,7 +9,7 @@
 #             later on. 
 #
 #--------------------------------------------------------------------------
-package Bricklayer::Templater::Handler::default::text_block;
+package Bricklayer::Templater::Handler::text_block;
 use Bricklayer::Templater::Handler;
 use base qw(Bricklayer::Templater::Handler);
 

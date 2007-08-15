@@ -65,24 +65,20 @@ sub parse_tokens($$$$) {
         # Seperate handlers with :: to denote directories
         # in the handler directory.
         my $handler;
-        my $tagname = $Token->{tagname};
+        my $tagname = 'Bricklayer::Templater::Handler::'.$Token->{tagname};
         my $Seperator = "/";
-        $tagname =~ s/::/$Seperator/g;
-        my $SymbolicRefLoader = $handler_loc."/handler/" . $tagname . ".pm";
-        my $DefaultRefLoader = "Bricklayer/Templater/default/" . $tagname . ".pm";
-        my $SymbolicRef = $Token->{tagname};
+        my $SymbolicRef = $tagname;
+#        $tagname =~ s/::/$Seperator/g;
         if (exists($handlerCache{$Token->{tagname}})) {
         	$handler = $handlerCache{$Token->{tagname}}->load($Token, $App);
             $handler->run_handler($Parameters);
             
         } else {
-        	if (-r $SymbolicRefLoader) {
-	            require $SymbolicRefLoader;
-	            $handler = $SymbolicRef->load($Token, $App);
-	        } elsif (require $DefaultRefLoader) {	            
+            eval "use $tagname";
+        	if (!$@) {	            
 	            $handler = $SymbolicRef->load($Token, $App);
 	        } else {
-	            $App->errors("grrr no such handler: $Token->{tagname} at $SymbolicRefLoader", "log");
+	            carp("grrr no such handler: $Token->{tagname} at $tagname.pm");
 	            next;
 	        }
 	        $handlerCache{$Token->{tagname}} = $SymbolicRef;

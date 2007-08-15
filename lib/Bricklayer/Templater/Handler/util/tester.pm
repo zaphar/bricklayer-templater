@@ -9,7 +9,7 @@
 #             later on. 
 #
 #--------------------------------------------------------------------------
-package Bricklayer::Templater::Handler::default::util::tester;
+package Bricklayer::Templater::Handler::util::tester;
 use Bricklayer::Templater::Handler;
 use base qw(Bricklayer::Templater::Handler);
 

@@ -6,7 +6,7 @@
 # Definition: allows us to embed code in the containing template
 #
 #--------------------------------------------------------------------------
-package Bricklayer::Templater::Handler::default::util::embed;
+package Bricklayer::Templater::Handler::util::embed;
 use Bricklayer::Templater::Handler;
 use base qw(Bricklayer::Templater::Handler);
 
