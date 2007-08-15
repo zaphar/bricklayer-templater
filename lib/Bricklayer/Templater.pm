@@ -109,7 +109,6 @@ sub load_template_file {
 	my $TemplateFile = $self->{WD}."/templates/".$filename;
 	$TemplateFile .= ".$extension";
 	$TemplateFile =~ s/::/\//g; # use double colon to indicate template directory seperators
-    warn "the template file is: $TemplateFile";
 	my $TemplateObj;
 	my $Template;
 	open( TEMPLATE, $TemplateFile )
@@ -153,7 +152,6 @@ sub run_sequencer {
 
 sub publish {
 	$self = shift;
-    warn "called with ".scalar @_." args [", join('|', @_)."]";
 	$self->{_page} .= join('', @_);
 } 
 
