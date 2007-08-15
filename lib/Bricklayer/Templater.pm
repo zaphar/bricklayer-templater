@@ -6,7 +6,7 @@ use Carp;
 =head1 NAME 
 
 Bricklayer::Templater - yet another templating system. Pure perl, highly flexible
-with very few dependincies.
+with very few dependencies.
 
 =head1 SYNOPSIS
 
