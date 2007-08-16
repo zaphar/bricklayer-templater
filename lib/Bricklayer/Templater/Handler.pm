@@ -56,9 +56,6 @@ sub parse_block {
 
 sub run_handler {
 	my $result = $_[0]->run($_[1]);
-	#$_[0]->errors( "Running: ".$_[0]->tagname()." tag handler", "log");
-	#$_[0]->errors( "Sending: |$result| to publish from block: >|".$_[0]->block()."|<", "log");	
-	#$_[0]->errors( $_[0]->tagname()." had the marker: ".$_[0]->block(), "log") if ($result =~ /^ .* $/);
 	$_[0]->app()->publish($result);
 }
 

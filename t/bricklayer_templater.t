@@ -84,7 +84,7 @@ my $p;
 END: {
     warn 'removing test directory';
     unlink 'templates/tmpl/test.txml';
-    unlink 'templates/tmpl';
+    rmdir 'templates/tmpl';
     unlink 'templates/test.txml';
-    unlink 'templates';
+    rmdir 'templates';
 }
