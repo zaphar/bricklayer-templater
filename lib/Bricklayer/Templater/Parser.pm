@@ -247,17 +247,17 @@ return 1;
 
 =head1 NAME
 
-Template::Parser - A generic parsing module.
+Bricklayer::Templater::Parser - A generic parsing module.
 
 =head1 SYNOPSIS
 
-use Template::Parser;
+use Bricklayer::Templater::Parser;
 
 my $template_text;
 my $start_tag_prefix;
 my $end_tag_prefix;
 
-my @tokens = Parser::parse_text($template_text,$start_tag_prefix,$end_tag_prefix);
+my @tokens = Template::Parser::parse_text($template_text,$start_tag_prefix,$end_tag_prefix);
 
 =head1 REQUIRES
 
@@ -335,6 +335,7 @@ Further Notes: The token tree returned by parse_text is not iterative, thus the
 =head1 AUTHOR
 
 (c) 2004 Jason Wall, <jason@walljm.com>, www.walljm.com
+(c) 2004 Jeremy Wall, <jeremy@marzhillstudios.com>, jeremy.marzhillstudios.com
 
 =cut
 
