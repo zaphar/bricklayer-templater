@@ -19,16 +19,11 @@ sub run {
 	my $passthrough = $self->attributes()->{nest};
 	my $negate = $self->attributes()->{"not"};
 	#my $foreach = $self->attributes()->{"for"} || $self->attributes()->{"foreach"};
-	$self->errors("negating result", "info")
-		if $negate;
-	$self->errors("recieved a ".ref($object));
 	if (ref($object) ne "") {
 		my $return;
 		$retrieve =~ s/\./->/g;
 		my $call = '$return = $object->'.$retrieve;
-		$self->errors("call was $call", "info");
 		eval $call;
-		$self->errors("result of call was: $return: ".ref($return), "info");
 		my $arg;
 		if ($self->block) {
 			$self->errors("there was a block", "info");
@@ -37,16 +32,6 @@ sub run {
 
 			if ($return || $negate) {
 				return if $negate && $return;
-				$self->errors('nest was defined', 'info')
-					if $passthrough;
-				$self->errors("passing: ".ref($return), 'info')
-					if $passthrough;
-				
-				$self->errors('nest was not defined', 'info')
-					unless $passthrough;
-				$self->errors("passing: ".ref($object), 'info')
-					unless $passthrough;
-				
 			} else {
 				return;
 			}
@@ -63,9 +48,7 @@ sub run {
 			return $return unless $negate;
 		}
 		return;
-	} else {
-		$self->errors('Not an Object in template', 'info');
-	}
+	} 
 	return;
 }
 

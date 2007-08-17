@@ -27,7 +27,7 @@ sub run {
     	unless $_[0]->{FileCache}{$file};
     $_[0]->{FileCache}{$file} = $contents
     	unless $_[0]->{FileCache}{$file};
-    $App->run_sequencer($_[0]->{FileCache}{$file}$_[1]);
+    $App->run_sequencer($_[0]->{FileCache}{$file},$_[1]);
     return;
 }
 
