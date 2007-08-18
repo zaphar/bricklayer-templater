@@ -1,7 +1,6 @@
 # Bricklayer Plugin SuperClass
 package Bricklayer::Templater::Handler;
 
-#use base qw{Bricklayer::Class::Dynamic::Core};
 use Carp;
 
 # Initialization

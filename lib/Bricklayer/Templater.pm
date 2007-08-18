@@ -126,6 +126,7 @@ sub load_template_file {
 sub run_templater {
 	my $self = shift;
     my $filename = shift;
+    my $Params = shift;
     $self->load_template_file($filename)
         or croak('Failed to loadi ['. $filename. '] template');
     $self->run_sequencer($self->_template, $Params);	

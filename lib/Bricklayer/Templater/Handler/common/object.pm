@@ -26,7 +26,7 @@ sub run {
 		eval $call;
 		my $arg;
 		if ($self->block) {
-			$self->errors("there was a block", "info");
+			carp("there was a block", "info");
 			$arg = $return if $passthrough;
 			$arg = $object unless $passthrough;
 
