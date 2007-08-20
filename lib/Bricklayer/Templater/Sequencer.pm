@@ -17,6 +17,18 @@ use Carp;
 
 use Bricklayer::Templater::Parser;
 
+=head1 NAME
+
+Bricklayer::Templater::Sequencer - Internal Module used by L<Bricklayer::Templater>;
+
+=head1 Description
+
+=head1 SEE ALSO
+
+L<Bricklayer::Templater>
+
+=cut
+
 my %handlerCache;
 
 our @ISA = qw(Exporter);
