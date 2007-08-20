@@ -87,7 +87,7 @@ sub new {
     return $obj;
 }
 
-=head3 my load_template_file
+=head3 load_template_file
 
 my $file = $t->load_template_file('template_name') loads a template file from the working directory
 there are two ways to specify the template name.
@@ -106,12 +106,13 @@ sub load_template_file {
     my $self = shift;
     my $filename = shift;
 	my $extension = $self->ext();
-	my $TemplateFile = $self->{WD}."/templates/".$filename;
+	my $TemplateFile = $self->WD()."/templates/".$filename;
 	$TemplateFile .= ".$extension";
 	$TemplateFile =~ s/::/\//g; # use double colon to indicate template directory seperators
 	my $TemplateObj;
 	my $Template;
-	open( TEMPLATE, $TemplateFile )
+	carp("loading $TemplateFile");
+    open( TEMPLATE, $TemplateFile )
 	  or croak("Cannot open Template File: $TemplateFile ");
 	
 	while ( read( TEMPLATE, my $line, 1000 ) ) {
@@ -152,8 +153,9 @@ sub run_sequencer {
 }
 
 sub publish {
-	$self = shift;
-	$self->{_page} .= join('', @_);
+	my $self = shift;
+    my $stuff = shift;
+	$self->{_page} .= $stuff if $stuff;
 } 
 
 =head3 clear

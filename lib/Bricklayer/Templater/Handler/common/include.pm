@@ -11,23 +11,21 @@
 #--------------------------------------------------------------------------
 package Bricklayer::Templater::Handler::common::include;
 use Bricklayer::Templater::Handler;
+use Carp;
 use base qw(Bricklayer::Templater::Handler);
 
 sub run {
-    my $Token = $_[0]->{Token};
-    my $App = $_[0]->{App};
-    my $tagID;
-    my $file = $Token->{attributes}{file}
-    	if exists($Token->{attributes}{file});
-    
-    $tagID = $Token->{attributes}{tagid}
-    	if exists($Token->{attributes}{tagid});
-    
-    $contents = $App->load_template_file($file)
+    my $self = shift;
+    my $arg  = shift;
+    my $App = $self->app();
+    my $file = $self->attributes()->{file} or confess("no file requested");
+        
+    my $content = $App->load_template_file($file)
+    	unless $self->{FileCache}{$file};
+    $self->{FileCache}{$file} = $content
     	unless $_[0]->{FileCache}{$file};
-    $_[0]->{FileCache}{$file} = $contents
-    	unless $_[0]->{FileCache}{$file};
-    $App->run_sequencer($_[0]->{FileCache}{$file},$_[1]);
+    confess("no contents in file: $file") unless $content;
+    $App->run_sequencer($self->{FileCache}{$file}, $arg);
     return;
 }
 

@@ -1,32 +1,33 @@
-#------------------------------------------------------------------------------- 
+#--------------------------------------------------------------------------
 # 
 # File: object.pm
 # Version: 0.1
 # Author: Jeremy Wall
 # Definition: allows us to dereference objects in the template
 #
-# Note: This tags functionality has been shamelessly ripped off / inspired
+# Note: This tags functionality has been shamelessly ripped off / inspired-
 # from Template Toolkit. Many thanks Andy Wardly for the ideas.
 #--------------------------------------------------------------------------
 package Bricklayer::Templater::Handler::common::object;
-use Bricklayer::Templater::Handler;
+use Carp;
 use base qw(Bricklayer::Templater::Handler);
 
 
 sub run {
 	my ($self, $object) = @_;
 	my $retrieve = $self->attributes()->{call};
-	my $passthrough = $self->attributes()->{nest};
+	carp("requested: $retrieve");
+    my $passthrough = $self->attributes()->{nest};
 	my $negate = $self->attributes()->{"not"};
-	#my $foreach = $self->attributes()->{"for"} || $self->attributes()->{"foreach"};
 	if (ref($object) ne "") {
 		my $return;
 		$retrieve =~ s/\./->/g;
 		my $call = '$return = $object->'.$retrieve;
 		eval $call;
+        carp("the return was: $return");
 		my $arg;
 		if ($self->block) {
-			carp("there was a block", "info");
+			carp("there was a block");
 			$arg = $return if $passthrough;
 			$arg = $object unless $passthrough;
 
@@ -38,7 +39,7 @@ sub run {
 			if ($self->attributes->{embed}) {
 				return &$arg();
 			} else {
-				$self->parse_block(undef, $arg);
+				$self->parse_block($arg);
 			}
 			return;
 		}
@@ -51,6 +52,5 @@ sub run {
 	} 
 	return;
 }
-
 
 return 1;

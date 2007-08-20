@@ -24,7 +24,7 @@ our @EXPORT = qw(new_sequencer return_parsed);
 
 sub new_sequencer {
     my $Proto = shift;
-    my $TemplateText = shift or die "No template specified";
+    my $TemplateText = shift or confess("No template specified");
     my $tagID = shift;
     my $Class = ref($Proto) || $Proto;
     my @TokenList = parse($TemplateText, $tagID);

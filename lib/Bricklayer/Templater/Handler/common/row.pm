@@ -1,17 +1,21 @@
 package Bricklayer::Templater::Handler::common::row;
 use Bricklayer::Templater::Handler;
+use Carp;
 use base qw(Bricklayer::Templater::Handler);
 
 sub run {
-	my $Token = $_[0]->{Token};
-	my $App =  $_[0]->{App};
+	my $self = shift;
+    my $Token = $self->{Token};
+	my $App =  $self->app();
 	my $block = $Token->{block};
-	my $loop = $_[1];
-	my $contents;
-	# start our loop sequence
+	my $loop = shift;
+	carp("in the row handler with $loop");
+    # start our loop sequence
 	if (ref($loop) eq "ARRAY") {
+        carp('got passed an array');
 		foreach my $item (@{$loop}) {
-			$contents .= $App->run_sequencer($block, undef, $item);
+            carp("Looping through the array");
+			$App->run_sequencer($block, $item);
 		}	
 	}
 	return;

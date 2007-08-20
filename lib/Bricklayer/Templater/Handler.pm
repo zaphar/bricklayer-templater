@@ -49,7 +49,7 @@ sub app {
 }
 
 sub parse_block {
-	$_[0]->app->run_sequencer($_[0]->block(), $_[2]);
+	$_[0]->app->run_sequencer($_[0]->block(), $_[1]);
 	return ;
 }
 
