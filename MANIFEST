@@ -7,7 +7,6 @@ lib/Bricklayer/Templater/Handler/text_block.pm
 lib/Bricklayer/Templater/Handler/default.pm
 lib/Bricklayer/Templater/Handler/common/object.pm
 lib/Bricklayer/Templater/Handler/common/hashitem.pm
-lib/Bricklayer/Templater/Handler/common/cgi_env.pm
 lib/Bricklayer/Templater/Handler/common/item.pm
 lib/Bricklayer/Templater/Handler/common/include.pm
 lib/Bricklayer/Templater/Handler/common/ifhashitem.pm
