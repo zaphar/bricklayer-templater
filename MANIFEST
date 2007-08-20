@@ -21,3 +21,4 @@ lib/Bricklayer/Templater/Sequencer.pm
 lib/Bricklayer/Templater/Handler.pm
 lib/Bricklayer/Templater.pm
 Changes
+META.yml

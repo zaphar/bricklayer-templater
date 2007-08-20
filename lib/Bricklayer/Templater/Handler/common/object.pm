@@ -16,7 +16,7 @@ use base qw(Bricklayer::Templater::Handler);
 sub run {
 	my ($self, $object) = @_;
 	my $retrieve = $self->attributes()->{call};
-	carp("requested: $retrieve");
+
     my $passthrough = $self->attributes()->{nest};
 	my $negate = $self->attributes()->{"not"};
 	if (ref($object) ne "") {
@@ -24,10 +24,10 @@ sub run {
 		$retrieve =~ s/\./->/g;
 		my $call = '$return = $object->'.$retrieve;
 		eval $call;
-        carp("the return was: $return");
+
 		my $arg;
 		if ($self->block) {
-			carp("there was a block");
+
 			$arg = $return if $passthrough;
 			$arg = $object unless $passthrough;
 
