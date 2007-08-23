@@ -2,6 +2,7 @@ use Test::More;
 use Test::MockObject;
 use Test::MockObject::Extends;
 use Cwd;
+use strict;
 
 use lib '..';
 my @coremethods = qw{new};

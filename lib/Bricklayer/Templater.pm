@@ -10,13 +10,13 @@ with very few dependencies.
 
 =head1 SYNOPSIS
 
-    use Bricklayer::Templater::Sequencer;
+    use Bricklayer::Templater;
     use Cwd;
     
     my $cwd = cwd();
     
     # create a new templater with a context object and a working directory
-    my $t = Bricklayer::Templater::Sequencer->new($context, $cwd);
+    my $t = Bricklayer::Templater->new($context, $cwd);
     
     # run the templater on a named template
     $t->run_templater('name_of_template');

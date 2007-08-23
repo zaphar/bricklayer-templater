@@ -16,14 +16,14 @@ $app->fake_module('Some::App');
 $app->mock('identifier' => sub { "BK" });
 $app->mock('run_sequencer' => sub { die 'ran sequencer'; });
 
-my @methods = qw{attributes block type tagname data tagid app parse_block run_handler };
+my @methods = qw{attributes block type tagname tagid app parse_block run_handler };
 
 BEGIN: {
     plan tests =>  1 # test that module compiles
                   +1 # test that can create a handler
                   +2 # test argument validation
                   +1 # test methods exist
-                  +7 # test attribute methods
+                  +6 # test attribute methods
                   +1 # test parse_block() functionality
                   ;    
 
@@ -41,8 +41,6 @@ BEGIN: {
     ok($h->tagid eq $app->identifier(), 'tagid ['.$app->identifier().'] is accessed correctly');
     ok($h->type eq $token->{type}, 'type ['.$token->{type}.'] is accessed correctly');
     ok($h->tagname eq $token->{tagname}, 'tagname ['.$token->{tagname}.'] is accessed correctly');
-    $h->{data} = 'some data';
-    ok($h->data eq $h->{data}, 'data ['.$h->{data}.'] is accessed correctly');
 }
 
 {
