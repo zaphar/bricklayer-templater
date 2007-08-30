@@ -46,7 +46,7 @@ sub run {
 		if ($self->attributes->{embed}) {
 			return &$return();
 		} else {
-			return $return unless $negate;
+			return $return if !$negate;
 		}
 		return;
 	} 
