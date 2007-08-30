@@ -15,25 +15,26 @@
 #-------------------------------------------------------------------------------
 package Bricklayer::Templater::Parser;
 
-require Exporter;
 use strict;
 use Carp;
 
-our @ISA = qw(Exporter);
-our @EXPORT = qw(parse_text parse_attributes);
-
 # Global Variables
 my $DefaultTagID = 'BK';
-
 
 # Package Methods
 sub parse_text {
 	# Function wide variables
 	my $textblock = shift; 	#this variable contains the block of text to be parsed.
-	my $tagID = shift || $DefaultTagID;		# this variable contains the ID of the tag it is optional
-	my $TagStartText = "<$tagID"; # Start tag prefix (it gets passed in)
-	my $TagEndText = "</$tagID"; # End tag prefix (it also gets passed in)
-	my @tokens = ();				#this variable will contain the tokenized text.
+	my $tagID = shift or croak('Must pass in tagid');		# this variable contains the ID of the tag it is optional
+    my $startbracket = shift or croak('Must pass in startbracket');
+	my $endbracket   = shift or croak('Must pass in endbracket');
+    my $TagStartText = $startbracket.$tagID; # Start tag prefix (it gets passed in)
+    my $TagEndText = $startbracket.'/'.$tagID; # End tag prefix (it also gets passed in)
+	#carp("startbracket: $startbracket");
+	#carp("endbracket: $endbracket");
+	#carp("TagStartText: $TagStartText");
+	#carp("TagEndText: $TagEndText");
+    my @tokens = ();				#this variable will contain the tokenized text.
 	 
 	# loop through the string tokenizing as you go.  Since you are actually removing
 	#  the pieces of text as you go, when you are finished, the string should be empty.
@@ -50,12 +51,13 @@ sub parse_text {
 
 		# check to see if the first part of the string is not a tag, ie doesn't start with the Start Tag Prefix..
 		if (substr($textblock, 0, length($TagStartText)) ne $TagStartText) {
-		
+	        #carp("In a text block");	
 			# find the begining of the tag.
 			$endpos = index($textblock, $TagStartText);
 			# populate the text block
 			if ($endpos == -1) {
-				# if there are no more template tags, put the remaining text into the block 
+				#carp("No more text to process");
+                # if there are no more template tags, put the remaining text into the block 
 				$block = substr($textblock, 0);
 				#remove the text block from $textblock.
 				$textblock = "";
@@ -71,7 +73,7 @@ sub parse_text {
 				type => "text", 
 				tagname => "text_block", 
 				block => $block,
-			        tagid => $tagID
+		        tagid => $tagID
 			);
 
 			#put the token at the bottom of the stack.
@@ -82,22 +84,22 @@ sub parse_text {
 			my $tag;
 			
 			# get the tag from the string.
-			$tag = substr($textblock,0,index($textblock, '>') +1);
+			$tag = substr($textblock,0,index($textblock, $endbracket) +1);
 			
 			# This is where we determine if the tag is a block or a single tag.
 			#  We do this by looking for the forward slash, if it doesn't find one
 			#  then it means the tag is a block.
-			if (index($tag, '/>') == -1) { 
+			if (index($tag, "/$endbracket") == -1) { 
 				
 				# Get the tag name.
-				$tagname = substr($tag, length($TagStartText), index($tag, '>')-length($TagStartText));
+				$tagname = substr($tag, length($TagStartText), index($tag, $endbracket)-length($TagStartText));
 				if (index($tagname, ' ') != -1) {
 					$tagname = substr($tagname, 0, index($tagname, ' '));
 				}
 							
 				# Get the tag block.
 				# But first remove the opening tag from $textblock.
-				$textblock = substr($textblock, index($textblock, '>')+1);
+				$textblock = substr($textblock, index($textblock, $endbracket)+1);
 				
 			
 				# before going on, you must check for nested tags identical to the current tag.
@@ -129,8 +131,8 @@ sub parse_text {
 						# to see if it is self closing.
   						my $nested_tag = 
 							substr($textblock,$idx_open_tag,
-								index($textblock, '>', $idx_open_tag)-$idx_open_tag+1);
-  						if (index($nested_tag, '/>') == -1) { 
+								index($textblock, $endbracket, $idx_open_tag)-$idx_open_tag+1);
+  						if (index($nested_tag, $endbracket) == -1) { 
 							# this is a nested block tag
 							$ignore += 1;
   						}
@@ -144,11 +146,11 @@ sub parse_text {
 				# and remove the block of text from $textblock.
 				$textblock = substr($textblock, $idx_close_tag);
 				# remove the closing tag from $textblock.
-				$textblock = substr($textblock, index($textblock, '>')+1);
+				$textblock = substr($textblock, index($textblock, $endbracket)+1);
 				
 				# get the attributes.
 				$tag = substr($tag,length($TagStartText));
-				$tag = substr($tag, 0, index($tag, '>'));
+				$tag = substr($tag, 0, index($tag, $endbracket));
 
 				%attributes = parse_attributes($tag);
 		
@@ -166,17 +168,17 @@ sub parse_text {
 				# this parses a single tag out.
 
 				# Get the tag name.
-				$tagname = substr($tag, length($TagStartText), index($tag, '>')-(length($TagStartText)+1));
+				$tagname = substr($tag, length($TagStartText), index($tag, $endbracket)-(length($TagStartText)+1));
 				if (index($tagname, ' ') != -1) {
 					$tagname = substr($tagname, 0, index($tagname, ' '));
 				}
 				
 				# remove the tag from $textblock.
-				$textblock = substr($textblock, index($textblock, '>')+1);
+				$textblock = substr($textblock, index($textblock, $endbracket)+1);
 			
 				# get the attributes.
 				$tag = substr($tag,length($TagStartText));
-				$tag = substr($tag, 0, index($tag, '/>'));
+				$tag = substr($tag, 0, index($tag, $endbracket));
 				%attributes = parse_attributes($tag);
 		
 				# populate the token
