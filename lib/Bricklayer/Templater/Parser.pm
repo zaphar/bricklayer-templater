@@ -109,38 +109,42 @@ sub parse_text {
 				my $close_len = length($close_tag);
 				my $ignore = 0;
 				my $found_end = 0;
+                #is there an open tag in our text block still?
 				my $idx_open_tag = index($textblock,$open_tag);
+                #is there a close tag in our text block?
 				my $idx_close_tag = index($textblock,$close_tag);
 				
 				while (not $found_end) {
   					
-				if ($idx_open_tag == -1 or $idx_open_tag > $idx_close_tag) {
-						# This is a possible end tag, check to see if it is what 
+				    if ($idx_open_tag == -1 or $idx_open_tag > $idx_close_tag) {
+						# there is not open tag or there is an open tag before the close tag
+                        # This is a possible end tag, check to see if it is what 
 						# we are looking for
 						if ($ignore > 0 ) {
 							# this is not the end tag you are looking for...
 							$ignore--;
+                            # find the index of the next close tag after this one;
 							$idx_close_tag = index($textblock, $close_tag, $idx_close_tag+$close_len)
 						
 						} else {
 	  						# This is the end tag you are looking for.
 							$found_end = 1;
 						}
-  					} else {
+  					} else {# there is another open tag before our first close tag
 						# this is a nested open tag, it needs to be checked 
 						# to see if it is self closing.
   						my $nested_tag = 
 							substr($textblock,$idx_open_tag,
 								index($textblock, $endbracket, $idx_open_tag)-$idx_open_tag+1);
-  						if (index($nested_tag, $endbracket) == -1) { 
+  						if (index($nested_tag, "/$endbracket") == -1) { 
 							# this is a nested block tag
-							$ignore += 1;
+							$ignore++;
   						}
 						# find the next open tag.
 						$idx_open_tag = index($textblock, $open_tag, $idx_open_tag+$open_len)
   					}
 				}				
-				
+				# grab our block from the text block start to the closing tags index
 				$block = substr($textblock, 0, $idx_close_tag);				
 
 				# and remove the block of text from $textblock.
