@@ -22,18 +22,17 @@ my @tokens;
     use_ok('Bricklayer::Templater::Parser');
 }
 
-TODO: {
-    local $TODO = 'die when tagid, and start and end brackets are not specified';
+{
     dies_ok(sub {Bricklayer::Templater::Parser::parse_text($TEMPLATE, undef, '<', '>'); }, 'parse without tagid fails' );
     dies_ok(sub {Bricklayer::Templater::Parser::parse_text($TEMPLATE, 'BK', undef, '>'); }, 'parse without start_bracket fails' );
     dies_ok(sub {Bricklayer::Templater::Parser::parse_text($TEMPLATE, undef, '<', undef); }, 'parse without end_bracket fails' );
 }
 
 {
-    ok(@tokens = Bricklayer::Templater::Parser::parse_text($TEMPLATE), 'Succeeded in parsing simple template');
+    ok(@tokens = Bricklayer::Templater::Parser::parse_text($TEMPLATE, 'BK', '<', '>'), 'Succeeded in parsing simple template');
     ok(scalar @tokens == 2, 'There were two tokens');
     is_deeply(\@tokens, \@cmp, 'Token Structure is correct');
-    ok(@tokens = Bricklayer::Templater::Parser::parse_text($TEMPLATE2), 'Succeeded in parsing simple template with attributes');
+    ok(@tokens = Bricklayer::Templater::Parser::parse_text($TEMPLATE2, 'BK', '<', '>'), 'Succeeded in parsing simple template with attributes');
     is_deeply(\@tokens, \@cmp2, 'Token Structure with attributes is correct');
 }
 
