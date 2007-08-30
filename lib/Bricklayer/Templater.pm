@@ -147,7 +147,7 @@ sub run_sequencer {
 	my $tagID = $self->identifier();
 	my $Params = shift;
 	my $handler_loc = $self->{WD};
-	my $TemplateObj = Bricklayer::Templater::Sequencer->new_sequencer($Template, $tagID);
+	my $TemplateObj = Bricklayer::Templater::Sequencer->new_sequencer($Template, $tagID, $self->start_bracket, $self->end_bracket);
 	my $ParsedPage = $TemplateObj->return_parsed($self, $Params, $handler_loc);
     return;
 }
