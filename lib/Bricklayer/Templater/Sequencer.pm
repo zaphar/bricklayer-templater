@@ -11,7 +11,7 @@
 #
 #-------------------------------------------------------------------------------
 package Bricklayer::Templater::Sequencer;
-require Exporter;
+
 use strict;
 use Carp;
 
@@ -31,26 +31,18 @@ L<Bricklayer::Templater>
 
 my %handlerCache;
 
-our @ISA = qw(Exporter);
-our @EXPORT = qw(new_sequencer return_parsed);
-
 sub new_sequencer {
     my $Proto = shift;
     my $TemplateText = shift or confess("No template specified");
     my $tagID = shift;
+    my $start = shift;
+    my $end   =shift;
+    
     my $Class = ref($Proto) || $Proto;
-    my @TokenList = parse($TemplateText, $tagID);
+    my @TokenList = Bricklayer::Templater::Parser::parse_text($TemplateText, $tagID, $start, $end);
     #die "this many tokens found ".scalar(@TokenList);
     return bless(\@TokenList, $Class); 
     
-}
-
-sub parse {
-    my $TemplateText = shift;
-    my $tagID = shift;
-    #die $tagID;
-    my @Tokens =  Bricklayer::Templater::Parser::parse_text($TemplateText, $tagID);
-    return @Tokens;
 }
 
 # returns a string with the replacement text for the parsed token
