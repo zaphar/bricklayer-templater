@@ -73,7 +73,7 @@ of the template object.
 
 =cut
 
-$VERSION='0.9.5';
+$VERSION='0.9.6';
 
 sub new {
     do {carp($_[0]." Requires a working directory"); return; } unless defined $_[2];
