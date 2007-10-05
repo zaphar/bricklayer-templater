@@ -281,7 +281,7 @@ the array.
 
 =head1 METHODS
 
-=item parse_text()
+=head2 parse_text()
 
 The parse_text() function takes the template text, a start tag prefix, and an end
 tag prefix, parses the appropriate tags and returns a token tree in the form of an
