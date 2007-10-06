@@ -15,6 +15,14 @@
 #-------------------------------------------------------------------------------
 package Bricklayer::Templater::Parser;
 
+=head1 NAME
+
+    Bricklayer::Templater::Parser - The parsing engine for Bricklayer::Templater
+
+=head1 Methods
+
+=cut
+
 use strict;
 use Carp;
 
@@ -289,35 +297,35 @@ array of hashes, each hash with a variable number of elements, depending on its 
 
 For Example:
  
-%text_token = (
-				type => "text", 
-				block => $block,	
-			);
-
-%block_tag_token = (
-				type => "block_tag", 
-				tagname => $tagname,
-				block => $block,
-				attributes => \%attributes,
-			);	
-
-%tag_token = (
-				type => "tag", 
-				tagname => $tagname,
-				attributes => \%attributes,
-			);
+    %text_token = (
+                    type => "text", 
+                    block => $block,	
+                );
+    
+    %block_tag_token = (
+                    type => "block_tag", 
+                    tagname => $tagname,
+                    block => $block,
+                    attributes => \%attributes,
+                );	
+    
+    %tag_token = (
+                    type => "tag", 
+                    tagname => $tagname,
+                    attributes => \%attributes,
+                );
 
 The attributes value is a reference to an attributes hash in the form of:
 
-%attributes = (
-				"attribute_name" => "attribute_value",
-			);
-
-Further Notes: The token tree returned by parse_text is not iterative, thus the 
-  tags inside a tag_block will not be processed, and you will need to call the 
-	parse_text() function again when dealing with those tags.
+    %attributes = (
+    				"attribute_name" => "attribute_value",
+    			);
+    
+Further Notes: The token tree returned by parse_text is not recursive, thus the 
+tags inside a tag_block will not be processed, and you will need to call the
+parse_text() function again when dealing with those tags.
 	
-	To build a complete tree, call the parse_text() function iteratively like so:
+To build a complete tree, call the parse_text() function iteratively like so:
 	
 	sub parse {
 		my $template_text = shift;
@@ -338,12 +346,17 @@ Further Notes: The token tree returned by parse_text is not iterative, thus the
     return @token_tree;
 	}
 
+=head2 parse_attributes 
+
+parses the tag attributes
+
+=head2 mytrim
+
+trims whitespace for us
+
 =head1 AUTHOR
 
 (c) 2004 Jason Wall, <jason@walljm.com>, www.walljm.com
 (c) 2004 Jeremy Wall, <jeremy@marzhillstudios.com>, jeremy.marzhillstudios.com
 
 =cut
-
-
-

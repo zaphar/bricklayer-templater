@@ -75,6 +75,12 @@ of the template object.
 
 $VERSION='0.9.6';
 
+=head3 new
+
+Initializes a Templater object. Requires a context and working directory as the first two arguments.
+
+=cut
+
 sub new {
     do {carp($_[0]." Requires a working directory"); return; } unless defined $_[2];
     do {carp($_[0]." Requires a context"); return; } unless defined $_[1];
@@ -124,6 +130,13 @@ sub load_template_file {
     return $Template;
 }
 
+=head3 $t->run_templater($file, $params)
+
+run_templater runs the sequencer on the text in $filename. The results 
+of the template run will be stored wherever publish() puts it.
+
+=cut
+
 sub run_templater {
 	my $self = shift;
     my $filename = shift;
@@ -134,9 +147,9 @@ sub run_templater {
 	return 1;
 }
 
-=head3 $t->run_sequencer($file)
+=head3 $t->run_sequencer($text, $params)
 
-run_sequencer runs the sequencer on the text in $file. The results 
+run_sequencer runs the sequencer on the text in $text. The results 
 of the template run will be stored wherever publish() puts it.
 
 =cut
@@ -151,6 +164,13 @@ sub run_sequencer {
 	my $ParsedPage = $TemplateObj->return_parsed($self, $Params, $handler_loc);
     return;
 }
+
+=head3 publish
+
+default publish callback. You'll probably be overriding this but if you don't then the handlers will use this method
+to store the result of the parsed page in the $templater->{_page} attribute.
+
+=cut
 
 sub publish {
 	my $self = shift;
@@ -170,12 +190,24 @@ sub clear {
     $self->{_page} = undef;
 }
 
+=head3 start_bracket
+
+sets and returns the start_bracket attribute for the templater template tags
+
+=cut
+
 sub start_bracket {
    my $self = shift;
    my $var = shift;
    $self->{start_bracket} = $var if $var;
    return $self->{start_bracket};
 }
+
+=head3 end_bracket
+
+sets and returns the end_bracket attribute for the templater template tags
+
+=cut
 
 sub end_bracket {
    my $self = shift;
@@ -184,12 +216,24 @@ sub end_bracket {
    return $self->{end_bracket};
 }
 
+=head3 ext
+
+sets and returns the ext attribute for the templater otherwise known as the template file extension
+
+=cut
+
 sub ext {
    my $self = shift;
    my $var = shift;
    $self->{ext} = $var if $var;
    return $self->{ext};
 }
+
+=head3 identifier
+
+sets and returns the identifier attribute for the templater otherwise known as the tag identifier
+
+=cut
 
 sub identifier {
    my $self = shift;
@@ -198,12 +242,24 @@ sub identifier {
    return $self->{identifier};
 }
 
+=head3 _template
+
+sets and returns the _template attribute for the templater a sort of scratchpad that the templater uses to store templates
+
+=cut
+
 sub _template {
    my $self = shift;
    my $var = shift;
    $self->{template} = $var if $var;
    return $self->{template};
 }
+
+=head3 _page
+
+sets and returns the _page attribute for the templater where the default publish callback stores the return
+
+=cut
 
 sub _page {
    my $self = shift;
@@ -212,9 +268,21 @@ sub _page {
    return $self->{_page};
 }
 
+=head3 app
+
+sets and returns the app attribute for the templater otherwise known as the context
+
+=cut
+
 sub app {
 	return $_[0]->{App};
 }
+
+=head3 WD
+
+sets and returns the WD attribute for the templater otherwise known as the working directory
+
+=cut
 
 sub WD {
 	return $_[0]->{WD};	

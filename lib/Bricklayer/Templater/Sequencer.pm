@@ -23,9 +23,13 @@ Bricklayer::Templater::Sequencer - Internal Module used by L<Bricklayer::Templat
 
 =head1 Description
 
-=head1 SEE ALSO
+Handles parsing the template and replacing the tags with returned text for Bricklayer::Templater
 
-L<Bricklayer::Templater>
+=head1 METHODS
+
+=head2 new_sequencer
+
+Creates a new sequencer object. 
 
 =cut
 
@@ -45,6 +49,13 @@ sub new_sequencer {
     
 }
 
+=head2 return_parsed
+
+returns a string with the replacement text for a parsed token
+
+=cut
+
+
 # returns a string with the replacement text for the parsed token
 sub return_parsed($$$$) {
     my $Self = shift;
@@ -55,6 +66,12 @@ sub return_parsed($$$$) {
     parse_tokens($Self, $Env, $Parameters, $handler_loc);
     return; 
 }
+
+=head2 parse_tokens
+
+actually runs through the list of tokens and loades the handler or retrieves it from the handler cache to run.
+
+=cut
 
 sub parse_tokens($$$$) {
     my $TokenList = shift;
@@ -92,5 +109,11 @@ sub parse_tokens($$$$) {
     }
     return;
 }
+
+=head1 SEE ALSO
+
+L<Bricklayer::Templater>
+
+=cut
 
 return 1;
