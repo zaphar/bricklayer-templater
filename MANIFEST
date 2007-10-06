@@ -23,7 +23,6 @@ lib/Bricklayer/Templater/Handler/common/row.pm
 lib/Bricklayer/Templater/Handler/default.pm
 lib/Bricklayer/Templater/Handler/text_block.pm
 lib/Bricklayer/Templater/Handler/util/embed.pm
-lib/Bricklayer/Templater/Handler/util/tester.pm
 lib/Bricklayer/Templater/Parser.pm
 lib/Bricklayer/Templater/Sequencer.pm
 Makefile.PL
