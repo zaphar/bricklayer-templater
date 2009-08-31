@@ -1,4 +1,3 @@
-Changes
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
@@ -25,13 +24,12 @@ lib/Bricklayer/Templater/Handler/text_block.pm
 lib/Bricklayer/Templater/Handler/util/embed.pm
 lib/Bricklayer/Templater/Parser.pm
 lib/Bricklayer/Templater/Sequencer.pm
+Makefile
 Makefile.PL
 MANIFEST			This list of files
+MANIFEST.skip
 META.yml
 README
 t/01bricklayer_templater_parser.t
 t/02bricklayer_templater.t
 t/03bricklayer_templater_handler.t
-t/bricklayer_templater_handlers.t
-t/pod-coverage.t
-t/pod.t
